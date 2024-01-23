@@ -1,0 +1,15 @@
+.wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  margin: 10px;
+}

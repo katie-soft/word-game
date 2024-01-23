@@ -1,0 +1,74 @@
+.wrapper {
+  position: relative;
+  padding: 5px 20px;
+}
+
+.wrapper::before {
+  position: absolute;
+  top: 10px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--quaternary-color);
+  color: var(--background-color);
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 18px;
+}
+
+.wrapper:nth-of-type(1)::before {
+  content: '1'
+}
+
+.wrapper:nth-of-type(2)::before {
+  content: '2'
+}
+
+.wrapper:nth-of-type(3)::before {
+  content: '3'
+}
+
+.wrapper:nth-of-type(4)::before {
+  content: '4'
+}
+
+.wrapper:nth-of-type(5)::before {
+  content: '5'
+}
+
+.wrapper:nth-of-type(6)::before {
+  content: '6'
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #FFFFFF;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 7px;
+}
+
+.input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  color: #FFFFFF;
+}
+
+.label {
+  margin-left: 10px;
+}
+
+.input:read-only {
+  cursor:not-allowed;
+}
+
+.crossed .input {
+  text-decoration: line-through;
+}

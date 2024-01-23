@@ -1,0 +1,7 @@
+.label {
+  padding: 10px;
+  border-radius: 15px;
+  background-color: var(--secondary-color);
+  text-align: center;
+  margin: 0;
+}

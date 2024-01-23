@@ -1,0 +1,16 @@
+:root {
+  --font: 'Monserrat', sans-serif;
+  /* --primary-color: #893FBA; */
+  --primary-color: #80E0AB;
+  /* --secondary-color: #FFA654; */
+  --secondary-color: #E86633;
+  --secondary-color-light: #e78862;
+  /* --tertiary-color: #0078EB; */
+  /* --quaternary-color: #F4FF82; */
+  --quaternary-color: #DFFF99;
+  /* --background-color: #c5b5f5; */
+  --background-color: #5051A6;
+  /* --button-color: #3AC634; */
+  --button-color: #4FABA0;
+  --border-radius: 7px;
+}
