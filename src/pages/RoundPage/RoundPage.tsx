@@ -1,13 +1,17 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './RoundPage.module.css';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import WordLabel from '../../components/WordLabel/WordLabel';
 import Button from '../../components/Button/Button';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import WordList from '../../components/WordList/WordList';
+
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
-import WordList from '../../components/WordList/WordList';
+import { getIdFromLocation } from '../../utils/getIdFromLocation';
+
+import styles from './RoundPage.module.css';
 
 function RoundPage() {
 
@@ -16,7 +20,7 @@ function RoundPage() {
 
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 
-	const wordId = Number(useLocation().pathname.split('/').at(-1));
+	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
 
 	let initialRoundScore: number;
 

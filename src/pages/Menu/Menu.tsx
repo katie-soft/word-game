@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import Button from '../../components/Button/Button';
-import styles from './Menu.module.css';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../../components/Modal/Modal';
 import { useDispatch } from 'react-redux';
+
+import Button from '../../components/Button/Button';
+import Modal from '../../components/Modal/Modal';
 import { AppDispatch } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
+
+import styles from './Menu.module.css';
 
 function Menu() {
 
@@ -25,8 +27,8 @@ function Menu() {
 			<Button onClick={() => navigate('/continue')}>Продолжить</Button>
 			<Button onClick={() => setIsModalOpen(true)}>Правила</Button>
 			<Modal open={isModalOpen}>
-				<p>Правила</p>
-				<button onClick={() => setIsModalOpen(false)}>x</button>
+				<p>Здесь будут правила игры</p>
+				<button className={styles.close} onClick={() => setIsModalOpen(false)}></button>
 			</Modal>
 		</div>
 	);

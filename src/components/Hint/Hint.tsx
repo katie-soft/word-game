@@ -2,12 +2,13 @@ import { ReactNode } from 'react';
 import styles from './Hint.module.css';
 
 type HintProps = {
+	isError?: boolean;
 	children: ReactNode;
 }
 
-function Hint({ children }: HintProps) {
+function Hint({ isError=false, children }: HintProps) {
 	return (
-		<div className={styles.hint}>{children}</div>
+		<div className={isError ? styles.error : styles.hint} >{children}</div>
 	);
 }
 

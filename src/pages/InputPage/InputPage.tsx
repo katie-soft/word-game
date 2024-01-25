@@ -1,13 +1,17 @@
-import Button from '../../components/Button/Button';
-import CodeInput from '../../components/CodeInput/CodeInput';
-import Hint from '../../components/Hint/Hint';
-import styles from './InputPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import Button from '../../components/Button/Button';
+import CodeInput from '../../components/CodeInput/CodeInput';
+import Hint from '../../components/Hint/Hint';
+
 import { AppDispatch } from '../../store/store';
-import { loadState } from '../../utils/localStorage';
 import { gameActions } from '../../store/game.slice';
+import { loadState } from '../../utils/localStorage';
+import { getWordById } from '../../utils/getWordById';
+
+import styles from './InputPage.module.css';
 
 function InputPage() {
 
@@ -18,22 +22,34 @@ function InputPage() {
 		dispatch(gameActions.startGame());
 	}
 
-	const [wordId, setWordId] = useState(0);
+	const [wordId, setWordId] = useState('');
+	const [isError, setIsError] = useState(false);
 
-	const setWordCode = (event: ChangeEvent<HTMLInputElement>) => {
-		setWordId(Number(event.target.value));
+	const isCodeCorrect = (code: string) => {
+		return getWordById(code) ? true : false;
 	};
 
-	return (<div className={styles.wrapper}>
-		<Hint>Введите код слова, которое выбрал ведущий игрок</Hint>
-		<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
-		<Button onClick={() => {
+	const proceedWithCode = () => {
+		if (isCodeCorrect(wordId)) {
+			setIsError(false);
 			dispatch(gameActions.startRound());
 			dispatch(gameActions.setWordId(wordId));
 			navigate(`/round/${wordId}`);
-		}}>Далее</Button>
-	</div>
+		} else {
+			setIsError(true);
+		}
+	};
 
+	const setWordCode = (event: ChangeEvent<HTMLInputElement>) => {
+		setWordId(event.target.value);
+	};
+
+	return (<div className={styles.wrapper}>
+		<Hint>Введите код слова, которое выбрал ведущий игрок. В коде используются английские буквы и цифры</Hint>
+		<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
+		{isError && <Hint isError>Неверный код. Попробуйте еще раз. В коде используются английские буквы и цифры</Hint>}
+		<Button onClick={proceedWithCode}>Далее</Button>
+	</div>
 	);
 }
 

@@ -4,7 +4,7 @@ import { loadState } from '../utils/localStorage';
 export type RoundData = {
   roundNumber: number;
   roundStatus: 'not_started' | 'started' | 'completed',
-	roundWordId: number,
+	roundWordId: string,
 	words: string[],
 	roundScore: number
 }
@@ -15,6 +15,7 @@ export type GameState = {
   rounds: RoundData[]
 }
 
+// 
 const initialState: GameState = loadState<GameState>('gameData') ?? {
 	currentRoundNumber: 1,
 	totalScore: 0,
@@ -22,42 +23,42 @@ const initialState: GameState = loadState<GameState>('gameData') ?? {
 		{
 			roundNumber: 1,
 			roundStatus: 'not_started',
-			roundWordId: 0,
+			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 2,
 			roundStatus: 'not_started',
-			roundWordId: 0,
+			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 3,
 			roundStatus: 'not_started',
-			roundWordId: 0,
+			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 4,
 			roundStatus: 'not_started',
-			roundWordId: 0,
+			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 5,
 			roundStatus: 'not_started',
-			roundWordId: 0,
+			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 6,
 			roundStatus: 'not_started',
-			roundWordId: 0,
+			roundWordId: '',
 			words: [],
 			roundScore: 0
 		}
@@ -72,11 +73,7 @@ export const gameSlice = createSlice({
 	name: 'game',
 	initialState,
 	reducers: {
-		startGame: (state) => {
-			state.currentRoundNumber = 1;
-			state.totalScore = 0;
-			state.rounds = initialState.rounds;
-		},
+		startGame: () => initialState,
 		startRound: (state) => {
 			const currentRound = getCurrentRound(state);
 			if (currentRound) {
@@ -94,7 +91,7 @@ export const gameSlice = createSlice({
 		increaseRoundNumber: (state) => {
 			state.currentRoundNumber++;
 		},
-		setWordId: (state, action: PayloadAction<number>) => {
+		setWordId: (state, action: PayloadAction<string>) => {
 			const currentRound = getCurrentRound(state);
 			if (currentRound) {
 				currentRound.roundWordId = action.payload;

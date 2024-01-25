@@ -1,5 +1,5 @@
 export type Word = {
-  id: number,
+  id: string,
   roundId: number,
   word?: string
   wordList?: string[]

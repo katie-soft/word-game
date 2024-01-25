@@ -46,7 +46,7 @@ const router = createBrowserRouter([
 		path: '*',
 		element: <ErrorPage />
 	}
-]);
+], { basename: '/word-game' });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>

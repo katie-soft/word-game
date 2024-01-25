@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Button';
-import styles from './RoundResults.module.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
+
+import Button from '../../components/Button/Button';
+
+import styles from './RoundResults.module.css';
 
 function RoundResultsPage() {
 

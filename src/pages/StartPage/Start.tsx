@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import styles from './Start.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Card from '../../components/Card/Card';
 import { words } from '../../data/words';
 import { getRandomArrayElement } from '../../utils/random';
-import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 import { getRoundType } from '../../utils/roundInfo';
+
+import styles from './Start.module.css';
 
 function Start() {
 
@@ -18,8 +20,8 @@ function Start() {
 
 	const currentRoundType = getRoundType(currentRoundNumber);
   
-	const wordIds: number[] = [];
-	const exceptions: number[] = [];
+	const wordIds: string[] = [];
+	const exceptions: string[] = [];
 
 	const randomWordSelect = () => {
 		const wordList = words.filter(word => word.roundId === currentRoundType && !exceptions.includes(word.id));

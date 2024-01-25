@@ -12,7 +12,9 @@ const modalDiv = document.getElementById('modal') as HTMLElement;
 function Modal({ children, open }: ModalProps) {
 
 	return createPortal(
-		<dialog className={styles.modal} open={open}>{children}</dialog>,
+		<dialog className={styles.modal} open={open}>
+			{children}
+		</dialog>,
 		modalDiv
 	);
   

@@ -1,11 +1,11 @@
 import { HTMLAttributes } from 'react';
-import { words } from '../../data/words';
 import WordInput from '../WordInput/WordInput';
 
 import styles from './WordList.module.css';
+import { getWordById } from '../../utils/getWordById';
 
 export interface WordListProps extends HTMLAttributes<HTMLHeadingElement> {
-	wordId: number;
+	wordId: string;
 	isChecking: boolean;
 	updateScore: (isChecked: boolean) => void;
 }
@@ -15,7 +15,7 @@ function WordList({ wordId, isChecking, updateScore }: WordListProps) {
 	let wordsForRound = Array(6).fill('');
 
 	if (wordId) {
-		const wordList = words.filter(word => word.id === wordId)[0].wordList;
+		const wordList = getWordById(wordId).wordList;
 		if (wordList)  {
 			wordsForRound = wordList;
 		}

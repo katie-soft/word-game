@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { round } from '../../data/words';
+import { round } from '../../data/rounds';
 import styles from './RoundLabel.module.css';
 import { RootState } from '../../store/store';
 import { getRoundType } from '../../utils/roundInfo';

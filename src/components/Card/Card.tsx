@@ -1,15 +1,15 @@
-import { words } from '../../data/words';
 import { Word } from '../../types/Word.types';
+import { getWordById } from '../../utils/getWordById';
 import styles from './Card.module.css';
 
 interface CardProps {
-	wordId: number;
+	wordId: string;
 	onClick?: () => void;
 }
 
 function Card({ wordId, onClick }: CardProps) {
 
-	const wordItem: Word = words.filter(word => word.id === wordId)[0];
+	const wordItem: Word = getWordById(wordId);
 
 	return (
 		<div className={styles.card} onClick={onClick}>
