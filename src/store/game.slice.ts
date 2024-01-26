@@ -15,7 +15,6 @@ export type GameState = {
   rounds: RoundData[]
 }
 
-// 
 const initialState: GameState = loadState<GameState>('gameData') ?? {
 	currentRoundNumber: 1,
 	totalScore: 0,
