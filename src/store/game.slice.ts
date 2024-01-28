@@ -28,42 +28,42 @@ const initialState: GameState = {
 			roundNumber: 1,
 			roundScene: '',
 			roundWordId: '',
-			words: [],
+			words: ['', '', '', '', '', ''],
 			roundScore: 0
 		},
 		{
 			roundNumber: 2,
 			roundScene: '',
 			roundWordId: '',
-			words: [],
+			words: ['', '', '', '', '', ''],
 			roundScore: 0
 		},
 		{
 			roundNumber: 3,
 			roundScene: '',
 			roundWordId: '',
-			words: [],
+			words: ['', '', '', '', '', ''],
 			roundScore: 0
 		},
 		{
 			roundNumber: 4,
 			roundScene: '',
 			roundWordId: '',
-			words: [],
+			words: ['', '', '', '', '', ''],
 			roundScore: 0
 		},
 		{
 			roundNumber: 5,
 			roundScene: '',
 			roundWordId: '',
-			words: [],
+			words: ['', '', '', '', '', ''],
 			roundScore: 0
 		},
 		{
 			roundNumber: 6,
 			roundScene: '',
 			roundWordId: '',
-			words: [],
+			words: ['', '', '', '', '', ''],
 			roundScore: 0
 		}
 	]
@@ -108,7 +108,6 @@ export const gameSlice = createSlice({
 		},
 		addWords: (state, action: PayloadAction<newWord>) => {
 			const currentRound = getCurrentRound(state);
-			console.log(currentRound, ' round,', action.payload);
 			if (currentRound) {
 				currentRound.words[action.payload.index] = action.payload.word;
 			}

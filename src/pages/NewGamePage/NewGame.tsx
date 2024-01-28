@@ -4,7 +4,6 @@ import Button from '../../components/Button/Button';
 
 import styles from './NewGame.module.css';
 import Hint from '../../components/Hint/Hint';
-import HomeButton from '../../components/HomeButton/HomeButton';
 
 function NewGame() {
 
@@ -12,11 +11,11 @@ function NewGame() {
 
 	return (
 		<div className={styles.wrapper}>
-			<HomeButton />
 			<h2 className={styles.title}>Новая игра</h2>
 			<Hint>Если вы ведущий игрок, нажмите Выбрать слово.<br></br> Остальные игроки нажимают Ввести код </Hint>
 			<Button onClick={() => navigate('/start')}>Выбрать слово</Button>
 			<Button onClick={() => navigate('/code')}>Ввести код</Button>
+			<Button onClick={() => navigate('/')}>Вернуться в меню</Button>
 		</div>
 	);
 }

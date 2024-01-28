@@ -21,6 +21,9 @@ function RoundPage() {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
+	const savedWordList = useSelector((state: RootState) => state.game.rounds.filter(item => item.roundNumber === currentRoundNumber)[0].words);
+
+	console.log(currentRoundNumber, savedWordList);
 
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
 	const initialRoundScore = initialScore(currentRoundNumber);
@@ -59,6 +62,7 @@ function RoundPage() {
 			wordId={wordId} 
 			isChecking={isChecking} 
 			updateScore={updateScore}
+			startWords={savedWordList}
 		></WordList>
 
 		{!isChecking && 

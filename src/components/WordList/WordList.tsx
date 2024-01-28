@@ -6,28 +6,23 @@ import { WordInput } from '../WordInput/WordInput';
 import styles from './WordList.module.css';
 
 export interface WordListProps extends HTMLAttributes<HTMLHeadingElement> {
+	startWords: string[];
 	wordId: string;
 	isChecking: boolean;
 	updateScore: (isChecked: boolean) => void;
 }
 
-function WordList({ wordId, isChecking, updateScore }: WordListProps) {
+function WordList({ startWords, wordId, isChecking, updateScore }: WordListProps) {
 
-	let wordsForRound = Array(6).fill('');
-
-	if (wordId) {
-		const wordList = getWordById(wordId).wordList;
-		if (wordList)  {
-			wordsForRound = wordList;
-		}
-	}
+	const wordLabels = getWordById(wordId).wordList || [];
 
 	return <div className={styles.wrapper}>
-		{wordsForRound.map((item, i) => (
+		{startWords.map((item, i) => (
 			<WordInput 
 				key={i}
 				index={i.toString()}
-				label={item} 
+				startValue={item}
+				label={wordLabels[i]} 
 				isChecking={isChecking} 
 				updateScore={updateScore}></WordInput>
 		))}

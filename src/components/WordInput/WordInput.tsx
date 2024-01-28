@@ -7,15 +7,16 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 
 type PropsType = {
+	startValue: string;
 	index: string;
 	isChecking: boolean;
 	updateScore: (isChecked: boolean) => void;
 	label?: string;
 }
 
-export function WordInput({ isChecking=false, updateScore, label, index}: PropsType) {
+export function WordInput({ startValue, isChecking=false, updateScore, label, index}: PropsType) {
 
-	const [value, setValue] = useState('');
+	const [value, setValue] = useState(startValue);
 	const [isCrossed, setIsCrossed] = useState(false);
 	const dispatch = useDispatch<AppDispatch>();
 
@@ -25,7 +26,6 @@ export function WordInput({ isChecking=false, updateScore, label, index}: PropsT
 	};
 
 	const saveInput = (id: string, value: string) => {
-		console.log(id, value);
 		dispatch(gameActions.addWords({
 			index: Number(id),
 			word: value
@@ -44,8 +44,7 @@ export function WordInput({ isChecking=false, updateScore, label, index}: PropsT
 					onBlur={() => saveInput(index, value)} 
 					value={value}
 					id={index}/>
-				{isChecking && 
-				<WordCheckbox onChange={handleChange} />}
+				{(isChecking && value.length ) ? <WordCheckbox onChange={handleChange} /> : null}
 			</div>
 		</div>
 	);
