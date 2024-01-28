@@ -19,7 +19,7 @@ function InputPage() {
 	const navigate = useNavigate();
 
 	if (!loadState('gameData')) {
-		dispatch(gameActions.startGame());
+		dispatch(gameActions.startNewGame());
 	}
 
 	const [wordId, setWordId] = useState('');

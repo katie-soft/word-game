@@ -10,6 +10,7 @@ import WordList from '../../components/WordList/WordList';
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 import { getIdFromLocation } from '../../utils/getIdFromLocation';
+import { addBonusPoint, initialScore } from '../../utils/score';
 
 import styles from './RoundPage.module.css';
 
@@ -21,15 +22,7 @@ function RoundPage() {
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
-
-	let initialRoundScore: number;
-
-	if (currentRoundNumber === 2 || currentRoundNumber === 5) {
-		initialRoundScore = 6;
-	} else {
-		initialRoundScore = 0;
-	}
-
+	const initialRoundScore = initialScore(currentRoundNumber);
 	const isBlitz = currentRoundNumber === 3 || currentRoundNumber === 6;
 
 	const [isChecking, setIsChecking] = useState(false);
@@ -51,30 +44,26 @@ function RoundPage() {
 		}
 	};
 
-	const addBonusPoint = () => {
-		if (roundScore === 6) {
-			return roundScore + 1;
-		}
-		return roundScore;
-	};
-  
 	return (<div className={styles.wrapper}>
 
 		<RoundLabel />
 		{isChecking && <span>Счет: {roundScore}</span>}
 		{!isBlitz && <WordLabel wordId={wordId}></WordLabel>}
 
-		<WordList wordId={wordId} isChecking={isChecking} updateScore={updateScore}></WordList>
+		<WordList 
+			wordId={wordId} 
+			isChecking={isChecking} 
+			updateScore={updateScore}
+		></WordList>
 
 		{!isChecking && 
-		<Button onClick={() => {
-			dispatch(gameActions.addWords(['1', '2', '3', '4', '5', '6']));
+		<Button type='submit' onClick={() => {
 			setIsChecking(true);
 		}}>Готово</Button>}
 
 		{isChecking && 
 		<Button onClick={() => {
-			dispatch(gameActions.finishRound(addBonusPoint()));
+			dispatch(gameActions.finishRound(addBonusPoint(roundScore)));
 			navigate('/round-results');
 		}}>К результатам</Button>}
 

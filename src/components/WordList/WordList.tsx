@@ -1,8 +1,9 @@
 import { HTMLAttributes } from 'react';
-import WordInput from '../WordInput/WordInput';
+
+import { getWordById } from '../../utils/getWordById';
+import { WordInput } from '../WordInput/WordInput';
 
 import styles from './WordList.module.css';
-import { getWordById } from '../../utils/getWordById';
 
 export interface WordListProps extends HTMLAttributes<HTMLHeadingElement> {
 	wordId: string;
@@ -22,8 +23,13 @@ function WordList({ wordId, isChecking, updateScore }: WordListProps) {
 	}
 
 	return <div className={styles.wrapper}>
-		{wordsForRound.map(item => (
-			<WordInput label={item} isChecking={isChecking} updateScore={updateScore}></WordInput>
+		{wordsForRound.map((item, i) => (
+			<WordInput 
+				key={i}
+				index={i.toString()}
+				label={item} 
+				isChecking={isChecking} 
+				updateScore={updateScore}></WordInput>
 		))}
 	</div>; 
 }

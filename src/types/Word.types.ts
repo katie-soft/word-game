@@ -14,3 +14,8 @@ export type RoundType = {
   roundNumber: number,
   roundId: number
 }
+
+export type newWord = {
+	index: number;
+	word: string;
+}

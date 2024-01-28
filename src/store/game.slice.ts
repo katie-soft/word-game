@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { loadState } from '../utils/localStorage';
+import { newWord } from '../types/Word.types';
 
 export type RoundData = {
   roundNumber: number;
@@ -15,7 +16,9 @@ export type GameState = {
   rounds: RoundData[]
 }
 
-const initialState: GameState = loadState<GameState>('gameData') ?? {
+const savedState = loadState<GameState>('gameData');
+
+const initialState: GameState = {
 	currentRoundNumber: 1,
 	totalScore: 0,
 	rounds: [
@@ -72,7 +75,12 @@ export const gameSlice = createSlice({
 	name: 'game',
 	initialState,
 	reducers: {
-		startGame: () => initialState,
+		startNewGame: () => {
+			return initialState;
+		},
+		startSavedGame: () => {
+			return savedState;
+		},
 		startRound: (state) => {
 			const currentRound = getCurrentRound(state);
 			if (currentRound) {
@@ -96,10 +104,11 @@ export const gameSlice = createSlice({
 				currentRound.roundWordId = action.payload;
 			}
 		},
-		addWords: (state, action: PayloadAction<string[]>) => {
+		addWords: (state, action: PayloadAction<newWord>) => {
 			const currentRound = getCurrentRound(state);
+			console.log(currentRound, ' round,', action.payload);
 			if (currentRound) {
-				currentRound.words = action.payload;
+				currentRound.words[action.payload.index] = action.payload.word;
 			}
 		}
 	}
@@ -107,3 +116,4 @@ export const gameSlice = createSlice({
 
 export default gameSlice.reducer;
 export const gameActions = gameSlice.actions;
+

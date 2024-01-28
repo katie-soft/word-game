@@ -30,7 +30,7 @@ function RoundResultsPage() {
 						dispatch(gameActions.increaseRoundNumber());
 						navigate('/start');
 					}}>
-					Начать раунд</Button>
+					Выбрать слово</Button>
 					<Button onClick={() => {
 						dispatch(gameActions.increaseRoundNumber());
 						navigate('/code');

@@ -20,7 +20,7 @@ function Menu() {
 		<div className={styles.wrapper}>
 			<h2 className={styles.title}>Меню</h2>
 			<Button onClick={() => {
-				dispatch(gameActions.startGame());
+				dispatch(gameActions.startNewGame());
 				navigate('/start');
 			}}>Новая игра</Button>
 			<Button onClick={() => navigate('/code')}>Ввести код</Button>

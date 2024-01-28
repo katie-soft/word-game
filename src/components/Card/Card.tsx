@@ -15,7 +15,7 @@ function Card({ wordId, onClick }: CardProps) {
 		<div className={styles.card} onClick={onClick}>
 			{wordItem.word && <span className={styles.word}>{wordItem.word}</span>}
 			{wordItem.wordList && <ul className={styles.list}>
-				{wordItem.wordList.map(item => <li className={styles['list-item']}>{item}</li>)}
+				{wordItem.wordList.map((item, i) => <li key={i} className={styles['list-item']}>{item}</li>)}
 			</ul>}
 		</div>
 	);
