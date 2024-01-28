@@ -3,3 +3,8 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -7,6 +7,7 @@ import { gameActions } from '../../store/game.slice';
 import Button from '../../components/Button/Button';
 
 import styles from './RoundResults.module.css';
+import HomeButton from '../../components/HomeButton/HomeButton';
 
 function RoundResultsPage() {
 
@@ -22,6 +23,9 @@ function RoundResultsPage() {
 
 	return (
 		<div className= {styles.wrapper}>
+			<div className= {styles.header}>
+				<HomeButton />
+			</div>
 			<p>Раунд {currentRoundNumber}/6 окончен</p>
 			<p>Ваш счет: {roundScore}</p>
 			<div className={styles['button-wrapper']}>

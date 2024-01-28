@@ -4,6 +4,12 @@
   gap: 10px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .code {
   background-color: var(--quaternary-color);
   border-radius: 15px;

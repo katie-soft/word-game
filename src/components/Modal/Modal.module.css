@@ -3,5 +3,6 @@
   height: 80vh;
   border-radius: var(--border-radius);
   border-color: var(--quaternary-color);
-  background-color: #e9ecc9;
+  background-color: #FFFFFF;
+  color: var(--background-color);
 } 

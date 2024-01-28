@@ -21,9 +21,8 @@ function Menu() {
 			<h2 className={styles.title}>Меню</h2>
 			<Button onClick={() => {
 				dispatch(gameActions.startNewGame());
-				navigate('/start');
+				navigate('/new-game');
 			}}>Новая игра</Button>
-			<Button onClick={() => navigate('/code')}>Ввести код</Button>
 			<Button onClick={() => navigate('/continue')}>Продолжить</Button>
 			<Button onClick={() => setIsModalOpen(true)}>Правила</Button>
 			<Modal open={isModalOpen}>

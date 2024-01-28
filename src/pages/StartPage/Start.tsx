@@ -10,6 +10,7 @@ import { gameActions } from '../../store/game.slice';
 import { getRoundType } from '../../utils/roundInfo';
 
 import styles from './Start.module.css';
+import HomeButton from '../../components/HomeButton/HomeButton';
 
 function Start() {
 
@@ -36,14 +37,17 @@ function Start() {
 
 	return (
 		<div className={styles.wrapper}>
-			<RoundLabel></RoundLabel>	
+			<div className={styles.header}>
+				<RoundLabel />
+				<HomeButton />
+			</div>
 			<Card wordId={firstWord} onClick={() => {
-				dispatch(gameActions.startRound());
+				dispatch(gameActions.setRoundScene('show-code'));
 				dispatch(gameActions.setWordId(firstWord));
 				navigate(`/words/${firstWord}`);
 			}}></Card>
 			<Card wordId={secondWord} onClick={() => {
-				dispatch(gameActions.startRound());
+				dispatch(gameActions.setRoundScene('show-code'));
 				dispatch(gameActions.setWordId(secondWord));
 				navigate(`/words/${secondWord}`);
 			}}></Card>

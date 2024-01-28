@@ -2,9 +2,11 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { loadState } from '../utils/localStorage';
 import { newWord } from '../types/Word.types';
 
+export type RoundScene = 'word-select' | 'show-code' | 'code-input' | 'word-input' | 'score-count' | 'final-score' | '';
+
 export type RoundData = {
   roundNumber: number;
-  roundStatus: 'not_started' | 'started' | 'completed',
+  roundScene: RoundScene,
 	roundWordId: string,
 	words: string[],
 	roundScore: number
@@ -24,42 +26,42 @@ const initialState: GameState = {
 	rounds: [
 		{
 			roundNumber: 1,
-			roundStatus: 'not_started',
+			roundScene: '',
 			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 2,
-			roundStatus: 'not_started',
+			roundScene: '',
 			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 3,
-			roundStatus: 'not_started',
+			roundScene: '',
 			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 4,
-			roundStatus: 'not_started',
+			roundScene: '',
 			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 5,
-			roundStatus: 'not_started',
+			roundScene: '',
 			roundWordId: '',
 			words: [],
 			roundScore: 0
 		},
 		{
 			roundNumber: 6,
-			roundStatus: 'not_started',
+			roundScene: '',
 			roundWordId: '',
 			words: [],
 			roundScore: 0
@@ -81,16 +83,16 @@ export const gameSlice = createSlice({
 		startSavedGame: () => {
 			return savedState;
 		},
-		startRound: (state) => {
+		setRoundScene: (state, action: PayloadAction<RoundScene>) => {
 			const currentRound = getCurrentRound(state);
 			if (currentRound) {
-				currentRound.roundStatus = 'started';
+				currentRound.roundScene = action.payload;
 			}
 		},
 		finishRound: (state, action: PayloadAction<number>) => {
 			const currentRound = getCurrentRound(state);
 			if (currentRound) {
-				currentRound.roundStatus = 'completed';
+				currentRound.roundScene = 'final-score';
 				currentRound.roundScore = action.payload;
 				state.totalScore += action.payload;
 			}

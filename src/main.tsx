@@ -12,11 +12,21 @@ import GameResults from './pages/GameResultsPage/GameResutls';
 import InputPage from './pages/InputPage/InputPage';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import { continueGamePage } from './utils/setContinueGamePage';
+import NewGame from './pages/NewGamePage/NewGame';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Menu />
+	},
+	{
+		path: '/new-game',
+		element: <NewGame />
+	},
+	{
+		path: '/continue',
+		element: continueGamePage()
 	},
 	{
 		path: '/start',
@@ -55,3 +65,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 		</Provider>
 	</React.StrictMode>
 );
+

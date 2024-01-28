@@ -13,6 +13,7 @@ import { getIdFromLocation } from '../../utils/getIdFromLocation';
 import { addBonusPoint, initialScore } from '../../utils/score';
 
 import styles from './RoundPage.module.css';
+import HomeButton from '../../components/HomeButton/HomeButton';
 
 function RoundPage() {
 
@@ -46,7 +47,11 @@ function RoundPage() {
 
 	return (<div className={styles.wrapper}>
 
-		<RoundLabel />
+		<div className={styles.header}>
+			<RoundLabel />
+			<HomeButton />
+		</div>
+
 		{isChecking && <span>Счет: {roundScore}</span>}
 		{!isBlitz && <WordLabel wordId={wordId}></WordLabel>}
 

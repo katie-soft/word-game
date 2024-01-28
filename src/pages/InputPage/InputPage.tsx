@@ -12,6 +12,7 @@ import { loadState } from '../../utils/localStorage';
 import { getWordById } from '../../utils/getWordById';
 
 import styles from './InputPage.module.css';
+import HomeButton from '../../components/HomeButton/HomeButton';
 
 function InputPage() {
 
@@ -32,7 +33,7 @@ function InputPage() {
 	const proceedWithCode = () => {
 		if (isCodeCorrect(wordId)) {
 			setIsError(false);
-			dispatch(gameActions.startRound());
+			dispatch(gameActions.setRoundScene('word-input'));
 			dispatch(gameActions.setWordId(wordId));
 			navigate(`/round/${wordId}`);
 		} else {
@@ -45,6 +46,10 @@ function InputPage() {
 	};
 
 	return (<div className={styles.wrapper}>
+		<div className={styles.header}>
+			<HomeButton />
+		</div>
+
 		<Hint>Введите код слова, которое выбрал ведущий игрок. В коде используются английские буквы и цифры</Hint>
 		<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
 		{isError && <Hint isError>Неверный код. Попробуйте еще раз. В коде используются английские буквы и цифры</Hint>}
