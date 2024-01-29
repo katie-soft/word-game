@@ -11,6 +11,7 @@ import { getRoundType } from '../../utils/roundInfo';
 
 import styles from './Start.module.css';
 import HomeButton from '../../components/HomeButton/HomeButton';
+import Hint from '../../components/Hint/Hint';
 
 function Start() {
 
@@ -41,6 +42,7 @@ function Start() {
 				<RoundLabel />
 				<HomeButton />
 			</div>
+			<Hint>Выберите слово для этого раунда</Hint>
 			<Card wordId={firstWord} onClick={() => {
 				dispatch(gameActions.setRoundScene('show-code'));
 				dispatch(gameActions.setWordId(firstWord));

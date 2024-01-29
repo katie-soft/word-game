@@ -5,9 +5,10 @@ import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 
 import Button from '../../components/Button/Button';
+import HomeButton from '../../components/HomeButton/HomeButton';
 
 import styles from './RoundResults.module.css';
-import HomeButton from '../../components/HomeButton/HomeButton';
+import Hint from '../../components/Hint/Hint';
 
 function RoundResultsPage() {
 
@@ -30,6 +31,7 @@ function RoundResultsPage() {
 			<p>Ваш счет: {roundScore}</p>
 			<div className={styles['button-wrapper']}>
 				{!isGameEnd() && <>
+					<Hint>Если вы ведущий игрок в следующем раунде, нажмите "Выбрать слово". Остальные игроки нажимают "Ввести код"</Hint>
 					<Button onClick={() => {
 						dispatch(gameActions.increaseRoundNumber());
 						navigate('/start');

@@ -12,7 +12,7 @@ function NewGame() {
 	return (
 		<div className={styles.wrapper}>
 			<h2 className={styles.title}>Новая игра</h2>
-			<Hint>Если вы ведущий игрок, нажмите Выбрать слово.<br></br> Остальные игроки нажимают Ввести код </Hint>
+			<Hint>Если вы ведущий игрок, нажмите "Выбрать&nbsp;слово".<br></br> Остальные игроки нажимают "Ввести&nbsp;код". </Hint>
 			<Button onClick={() => navigate('/start')}>Выбрать слово</Button>
 			<Button onClick={() => navigate('/code')}>Ввести код</Button>
 			<Button onClick={() => navigate('/')}>Вернуться в меню</Button>

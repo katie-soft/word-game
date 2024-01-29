@@ -9,6 +9,7 @@ function ScoreInput({...props}: ScoreInputProps) {
 		<input 
 			className={styles.input} 
 			type="text" 
+			pattern="^[A-Z0-9]{3,5}$"
 			{...props}/>
 
 	);
