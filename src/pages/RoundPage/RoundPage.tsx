@@ -7,7 +7,7 @@ import WordLabel from '../../components/WordLabel/WordLabel';
 import Button from '../../components/Button/Button';
 import WordList from '../../components/WordList/WordList';
 import Hint from '../../components/Hint/Hint';
-import HomeButton from '../../components/HomeButton/HomeButton';
+import IconButton from '../../components/IconButton/IconButton';
 
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
@@ -28,11 +28,14 @@ function RoundPage() {
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
 	const initialRoundScore = initialScore(currentRoundNumber);
 	const isBlitz = currentRoundNumber === 3 || currentRoundNumber === 6;
-	const hintTextStart = isRoundGoalMatch(currentRoundNumber) ? 'Придумайте такие ассоциации, которые совпадут с ассоциациями других игроков' : 'Придумайте такие ассоциации, которые НЕ совпадут с ассоциациями других игроков';
-	const hintTextEnd = 'Отметьте те слова, которые совпали у вас и других игроков';
+
 
 	const [isChecking, setIsChecking] = useState(false);
 	const [roundScore, setScore] = useState(initialRoundScore);
+
+	const [hintIsOpen, setHintIsOpen] = useState(true);
+	const hintTextStart = isRoundGoalMatch(currentRoundNumber) ? 'Придумайте такие ассоциации, которые совпадут с ассоциациями других игроков' : 'Придумайте такие ассоциации, которые НЕ совпадут с ассоциациями других игроков';
+	const hintText = !isChecking ? hintTextStart : 'Отметьте те слова, которые совпали у вас и других игроков';
 
 	const updateScore = (isChecked: boolean) => {
 		if (!isRoundGoalMatch(currentRoundNumber)) {
@@ -54,10 +57,21 @@ function RoundPage() {
 
 		<div className={styles.header}>
 			<RoundLabel />
-			<HomeButton />
+			<div className={styles.buttons}>
+				<IconButton variant={'info'} onClick={() => setHintIsOpen(!hintIsOpen)} />
+				<IconButton variant={'home'} />
+			</div>
 		</div>
 
-		{isChecking && <span>Счет: {roundScore}</span>}
+		<Hint 
+			isVisible={hintIsOpen} 
+			close={() => setHintIsOpen(false)}>
+			{hintText}
+		</Hint>
+
+		{isChecking && 
+			<span>Счет: {roundScore}</span>
+		}
 		{!isBlitz && <WordLabel wordId={wordId}></WordLabel>}
 
 		<WordList 
@@ -71,14 +85,14 @@ function RoundPage() {
 			<Button type='submit' onClick={() => {
 				setIsChecking(true);
 			}}>Готово</Button>
-			<Hint>{hintTextStart}</Hint></>)}
+		</>)}
 
 		{isChecking && (<>
 			<Button onClick={() => {
 				dispatch(gameActions.finishRound(addBonusPoint(roundScore)));
 				navigate('/round-results');
 			}}>К результатам</Button>
-			<Hint>{hintTextEnd}</Hint></>)}
+		</>)}
 
 	</div>);
 }

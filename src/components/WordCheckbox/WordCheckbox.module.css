@@ -17,9 +17,9 @@
   left: 0;
   width: 20px;
   height: 20px;
-  content: url('../../assets/check-icon.svg');
+  content: url('../../assets/empty-icon.svg');
 }
 
 .wrapper:has(.checkbox:checked) .checkmark::after {
-  content: url('../../assets/delete-icon.svg');
+  content: url('../../assets/check-icon.svg');
 }

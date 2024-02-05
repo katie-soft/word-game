@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Card from '../../components/Card/Card';
+import Hint from '../../components/Hint/Hint';
+import IconButton from '../../components/IconButton/IconButton';
+
 import { words } from '../../data/words';
 import { getRandomArrayElement } from '../../utils/random';
 import { AppDispatch, RootState } from '../../store/store';
@@ -10,8 +13,6 @@ import { gameActions } from '../../store/game.slice';
 import { getRoundType } from '../../utils/roundInfo';
 
 import styles from './Start.module.css';
-import HomeButton from '../../components/HomeButton/HomeButton';
-import Hint from '../../components/Hint/Hint';
 
 function Start() {
 
@@ -40,9 +41,9 @@ function Start() {
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
 				<RoundLabel />
-				<HomeButton />
+				<IconButton variant='home' />
 			</div>
-			<Hint>Выберите слово для этого раунда</Hint>
+			<Hint isVisible={true}>Выберите слово для этого раунда</Hint>
 			<Card wordId={firstWord} onClick={() => {
 				dispatch(gameActions.setRoundScene('show-code'));
 				dispatch(gameActions.setWordId(firstWord));
