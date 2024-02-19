@@ -16,6 +16,7 @@ import { addBonusPoint, initialScore } from '../../utils/score';
 import { isRoundGoalMatch } from '../../utils/roundInfo';
 
 import styles from './RoundPage.module.css';
+import Confirmation from '../../components/Confirmation/Confirmation';
 
 function RoundPage() {
 
@@ -37,6 +38,31 @@ function RoundPage() {
 	const hintTextStart = isRoundGoalMatch(currentRoundNumber) ? 'Придумайте такие ассоциации, которые совпадут с ассоциациями других игроков' : 'Придумайте такие ассоциации, которые НЕ совпадут с ассоциациями других игроков';
 	const hintText = !isChecking ? hintTextStart : 'Отметьте те слова, которые совпали у вас и других игроков';
 
+	const [confirmation, setConfirmation] = useState(false);
+	const confirmationText = 'Уверены, что хотите перейти к подсчету очков?';
+
+	const noEmptyCells = () => {
+		for (let i = 0; i < savedWordList.length; i++) {
+			if (savedWordList[i].length === 0) {
+				return false;
+			}
+		}
+		return true;
+	};
+
+	const proceedToCheck = () => {
+		if (noEmptyCells()) {
+			setIsChecking(true);
+		} else {
+			setConfirmation(true);
+		}
+	};
+
+	const proceedToResults = () => {
+		dispatch(gameActions.finishRound(addBonusPoint(roundScore)));
+		navigate('/round-results');
+	};
+
 	const updateScore = (isChecked: boolean) => {
 		if (!isRoundGoalMatch(currentRoundNumber)) {
 			if (isChecked) {
@@ -52,6 +78,10 @@ function RoundPage() {
 			}
 		}
 	};
+
+	const button = !isChecking ? 
+		<Button onClick={proceedToCheck}>Готово</Button> : 
+		<Button onClick={proceedToResults}>К результатам</Button>;
 
 	return (<div className={styles.wrapper}>
 
@@ -81,18 +111,14 @@ function RoundPage() {
 			startWords={savedWordList}
 		></WordList>
 
-		{!isChecking && (<>
-			<Button type='submit' onClick={() => {
+		{confirmation ? <Confirmation 
+			text={confirmationText}
+			onConfirm={() => {
 				setIsChecking(true);
-			}}>Готово</Button>
-		</>)}
-
-		{isChecking && (<>
-			<Button onClick={() => {
-				dispatch(gameActions.finishRound(addBonusPoint(roundScore)));
-				navigate('/round-results');
-			}}>К результатам</Button>
-		</>)}
+				setConfirmation(false);
+			}}
+			onReject={() => setConfirmation(false)}
+		></Confirmation> : button }
 
 	</div>);
 }

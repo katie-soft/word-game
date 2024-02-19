@@ -23,7 +23,7 @@ function WordPage() {
 		</div>
 		<Card wordId={wordId}/>
 		<div className={styles.code}>Код слова: {wordId}</div>
-		<Hint isVisible={true}>Скажите этот код другим участникам. В коде используются английские буквы и цифры</Hint>
+		<Hint isVisible={true}>Скажите этот код другим участникам</Hint>
 		<Button onClick={() => {navigate(`/round/${wordId}`);}}>Далее</Button>
 	</div>;
 }

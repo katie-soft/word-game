@@ -18,7 +18,7 @@ function Menu() {
 
 	return (
 		<div className={styles.wrapper}>
-			<h2 className={styles.title}>Меню</h2>
+			<h2 className={styles.title}>Игра в ассоциации</h2>
 			<Button onClick={() => {
 				dispatch(gameActions.startNewGame());
 				navigate('/new-game');

@@ -55,9 +55,9 @@ function InputPage() {
 		</div>
 
 		<Hint isVisible={hintIsOpen} 
-			close={() => setHintIsOpen(false)}>Введите код слова, которое выбрал ведущий игрок. В коде используются английские буквы и цифры</Hint>
+			close={() => setHintIsOpen(false)}>Введите код слова, которое выбрал ведущий игрок</Hint>
 		<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
-		{isError && <Hint isVisible={true} isError>Неверный код. Попробуйте еще раз. В коде используются английские буквы и цифры</Hint>}
+		{isError && <Hint isVisible={true} isError>Неверный код. Попробуйте еще раз</Hint>}
 		<Button onClick={proceedWithCode}>Далее</Button>
 	</div>
 	);
