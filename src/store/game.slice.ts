@@ -18,7 +18,8 @@ export type GameState = {
   rounds: RoundData[]
 }
 
-const savedState = loadState<GameState>('gameData');
+export const savedState = loadState<GameState>('gameData');
+console.log(savedState);
 
 const initialState: GameState = {
 	currentRoundNumber: 1,

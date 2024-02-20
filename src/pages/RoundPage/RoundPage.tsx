@@ -53,6 +53,7 @@ function RoundPage() {
 	const proceedToCheck = () => {
 		if (noEmptyCells()) {
 			setIsChecking(true);
+			dispatch(gameActions.setRoundScene('score-count'));
 		} else {
 			setConfirmation(true);
 		}
@@ -60,6 +61,7 @@ function RoundPage() {
 
 	const proceedToResults = () => {
 		dispatch(gameActions.finishRound(addBonusPoint(roundScore)));
+		dispatch(gameActions.setRoundScene('final-score'));
 		navigate('/round-results');
 	};
 
