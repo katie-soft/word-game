@@ -18,8 +18,9 @@ export type GameState = {
   rounds: RoundData[]
 }
 
-export const savedState = loadState<GameState>('gameData');
-console.log(savedState);
+const savedState = (): GameState => {
+	return loadState<GameState>('gameData') || initialState;
+};
 
 const initialState: GameState = {
 	currentRoundNumber: 1,
@@ -82,7 +83,7 @@ export const gameSlice = createSlice({
 			return initialState;
 		},
 		startSavedGame: () => {
-			return savedState;
+			return savedState();
 		},
 		setRoundScene: (state, action: PayloadAction<RoundScene>) => {
 			const currentRound = getCurrentRound(state);
