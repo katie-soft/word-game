@@ -102,6 +102,9 @@ export const gameSlice = createSlice({
 		increaseRoundNumber: (state) => {
 			state.currentRoundNumber++;
 		},
+		decreaseRoundNumber: (state) => {
+			state.currentRoundNumber--;
+		},
 		setWordId: (state, action: PayloadAction<string>) => {
 			const currentRound = getCurrentRound(state);
 			if (currentRound) {

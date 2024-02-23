@@ -81,6 +81,11 @@ function RoundPage() {
 		}
 	};
 
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene('code-input'));
+		navigate('/code');
+	};
+
 	const button = !isChecking ? 
 		<Button onClick={proceedToCheck}>Готово</Button> : 
 		<Button onClick={proceedToResults}>К результатам</Button>;
@@ -90,8 +95,9 @@ function RoundPage() {
 		<div className={styles.header}>
 			<RoundLabel />
 			<div className={styles.buttons}>
-				<IconButton variant={'info'} onClick={() => setHintIsOpen(!hintIsOpen)} />
-				<IconButton variant={'home'} />
+				<IconButton variant='back' onClick={goBack} />
+				<IconButton variant='home' />
+				<IconButton variant='info' onClick={() => setHintIsOpen(!hintIsOpen)} />
 			</div>
 		</div>
 

@@ -13,19 +13,26 @@ import styles from './RoundResults.module.css';
 
 function RoundResultsPage() {
 
-	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
-	const roundScore = useSelector((state: RootState) => state.game.rounds.filter(item => item.roundNumber === currentRoundNumber)[0].roundScore);
+	const navigate = useNavigate();
+	const dispatch = useDispatch<AppDispatch>();
+
+	const { currentRoundNumber, rounds } = useSelector((state: RootState) => state.game);
+	const wordId = rounds.filter(item => item.roundNumber === currentRoundNumber)[0].roundWordId;
+	const roundScore = rounds.filter(item => item.roundNumber === currentRoundNumber)[0].roundScore;
 
 	const isGameEnd = () => {
 		return currentRoundNumber === 6;
 	};
 
-	const navigate = useNavigate();
-	const dispatch = useDispatch<AppDispatch>();
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene('score-count'));
+		navigate(`/round/${wordId}`);
+	};
 
 	return (
 		<div className= {styles.wrapper}>
 			<div className= {styles.header}>
+				<IconButton variant='back' onClick={goBack} />
 				<IconButton variant='home' />
 			</div>
 			<p>Раунд {currentRoundNumber}/6 окончен</p>

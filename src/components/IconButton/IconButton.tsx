@@ -4,7 +4,7 @@ import cn from 'classnames';
 import styles from './IconButton.module.css';
 
 type IconButtonProps = {
-	variant: 'home' | 'info';
+	variant: 'home' | 'info' | 'back';
 	onClick?: () => void;
 }
 

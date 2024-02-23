@@ -20,11 +20,11 @@ function Start() {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
-
 	const currentRoundType = getRoundType(currentRoundNumber);
-  
+
 	const wordIds: string[] = [];
 	const exceptions: string[] = [];
+	
 
 	const randomWordSelect = () => {
 		const wordList = words.filter(word => word.roundId === currentRoundType && !exceptions.includes(word.id));
@@ -37,11 +37,24 @@ function Start() {
 
 	const [ firstWord, secondWord ] = wordIds;
 
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene(''));
+		if (currentRoundNumber === 1) {
+			navigate('/new-game');
+		} else {
+			dispatch(gameActions.decreaseRoundNumber());
+			navigate('/round-results');
+		}
+	};
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
 				<RoundLabel />
-				<IconButton variant='home' />
+				<div className={styles.buttons}>
+					<IconButton variant='back' onClick={goBack} />
+					<IconButton variant='home' />
+				</div>
 			</div>
 			<Hint isVisible={true}>Выберите слово для этого раунда</Hint>
 			<Card wordId={firstWord} onClick={() => {

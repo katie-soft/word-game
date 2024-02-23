@@ -8,3 +8,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}

@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../components/Button/Button';
 import CodeInput from '../../components/CodeInput/CodeInput';
 import Hint from '../../components/Hint/Hint';
 import IconButton from '../../components/IconButton/IconButton';
 
-import { AppDispatch } from '../../store/store';
+import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 import { loadState } from '../../utils/localStorage';
 import { getWordById } from '../../utils/getWordById';
@@ -26,6 +26,8 @@ function InputPage() {
 	const [wordId, setWordId] = useState('');
 	const [isError, setIsError] = useState(false);
 	const [hintIsOpen, setHintIsOpen] = useState(true);
+
+	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 
 	const isCodeCorrect = (code: string) => {
 		return getWordById(code) ? true : false;
@@ -46,11 +48,22 @@ function InputPage() {
 		setWordId(event.target.value.toUpperCase());
 	};
 
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene(''));
+		if (currentRoundNumber === 1) {
+			navigate('/new-game');
+		} else {
+			dispatch(gameActions.decreaseRoundNumber());
+			navigate('/round-results');
+		}
+	};
+
 	return (<div className={styles.wrapper}>
 		<div className={styles.header}>
 			<div className={styles.buttons}>
-				<IconButton variant={'info'} onClick={() => setHintIsOpen(!hintIsOpen)} />
-				<IconButton variant={'home'} />
+				<IconButton variant='back' onClick={goBack} />
+				<IconButton variant='home' />
+				<IconButton variant='info' onClick={() => setHintIsOpen(!hintIsOpen)} />
 			</div>
 		</div>
 

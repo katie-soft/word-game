@@ -8,9 +8,9 @@ import Card from '../../components/Card/Card';
 import IconButton from '../../components/IconButton/IconButton';
 
 import styles from './Word.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gameActions } from '../../store/game.slice';
-
+import { RootState } from '../../store/store';
 
 function WordPage() {
 
@@ -18,11 +18,25 @@ function WordPage() {
 	const navigate = useNavigate();
 	
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
+	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
+
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene(''));
+		if (currentRoundNumber === 1) {
+			navigate('/new-game');
+		} else {
+			dispatch(gameActions.decreaseRoundNumber());
+			navigate('/round-results');
+		}
+	};
 
 	return <div className={styles.wrapper}>
 		<div className={styles.header}>
 			<RoundLabel />
-			<IconButton variant='home' />
+			<div className={styles.buttons}>
+				<IconButton variant='back' onClick={goBack} />
+				<IconButton variant='home' />
+			</div>
 		</div>
 		<Card wordId={wordId}/>
 		<div className={styles.code}>Код слова: {wordId}</div>
