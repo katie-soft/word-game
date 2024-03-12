@@ -10,7 +10,7 @@ function ErrorPage() {
 		<>
 			<h3 className={styles.title}>Такой страницы не существует</h3>
 			<p className={styles.title}>Остается только вернуться на главный экран</p>
-			<Button onClick={() => navigate('/')}>Домой</Button>
+			<Button text='Домой' variant='primary' onClick={() => navigate('/')} />
 		</>
 	);
 }

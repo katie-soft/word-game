@@ -1,10 +1,9 @@
 .card {
   padding: 10px;
   min-height: 100px;
-  background-color: var(--secondary-color);
+  background-color: var(--tertiary-color);
   border: none;
-  box-shadow: 0px 4px 0px #9D4522;
-  border-radius: 15px;
+  border-radius: var(--border-radius);
   display: flex;
   justify-content: center;
   align-items: center;

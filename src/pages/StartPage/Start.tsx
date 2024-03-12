@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Card from '../../components/Card/Card';
 import Hint from '../../components/Hint/Hint';
-import IconButton from '../../components/IconButton/IconButton';
+import Navigation from '../../components/Navigation/Navigation';
 
 import { words } from '../../data/words';
 import { getRandomArrayElement } from '../../utils/random';
@@ -37,37 +37,35 @@ function Start() {
 
 	const [ firstWord, secondWord ] = wordIds;
 
-	const goBack = () => {
-		dispatch(gameActions.setRoundScene(''));
-		if (currentRoundNumber === 1) {
-			navigate('/new-game');
-		} else {
-			dispatch(gameActions.decreaseRoundNumber());
-			navigate('/round-results');
-		}
-	};
+	// const goBack = () => {
+	// 	dispatch(gameActions.setRoundScene(''));
+	// 	if (currentRoundNumber === 1) {
+	// 		navigate('/new-game');
+	// 	} else {
+	// 		dispatch(gameActions.decreaseRoundNumber());
+	// 		navigate('/round-results');
+	// 	}
+	// };
 
 	return (
-		<div className={styles.wrapper}>
-			<div className={styles.header}>
-				<RoundLabel />
-				<div className={styles.buttons}>
-					<IconButton variant='back' onClick={goBack} />
-					<IconButton variant='home' />
-				</div>
+		<>
+			<RoundLabel />
+			<div className={styles.wrapper}>
+				<Hint isVisible={true}>Выберите слово для этого раунда</Hint>
+				<Card wordId={firstWord} onClick={() => {
+					dispatch(gameActions.setRoundScene('show-code'));
+					dispatch(gameActions.setWordId(firstWord));
+					navigate(`/words/${firstWord}`);
+				}}></Card>
+				<Card wordId={secondWord} onClick={() => {
+					dispatch(gameActions.setRoundScene('show-code'));
+					dispatch(gameActions.setWordId(secondWord));
+					navigate(`/words/${secondWord}`);
+				}}></Card>
 			</div>
-			<Hint isVisible={true}>Выберите слово для этого раунда</Hint>
-			<Card wordId={firstWord} onClick={() => {
-				dispatch(gameActions.setRoundScene('show-code'));
-				dispatch(gameActions.setWordId(firstWord));
-				navigate(`/words/${firstWord}`);
-			}}></Card>
-			<Card wordId={secondWord} onClick={() => {
-				dispatch(gameActions.setRoundScene('show-code'));
-				dispatch(gameActions.setWordId(secondWord));
-				navigate(`/words/${secondWord}`);
-			}}></Card>
-		</div>
+			<Navigation/>
+		</>
+
 	);
 }
 

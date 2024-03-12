@@ -6,10 +6,11 @@ import { gameActions } from '../../store/game.slice';
 
 import Button from '../../components/Button/Button';
 import Hint from '../../components/Hint/Hint';
-import IconButton from '../../components/IconButton/IconButton';
+import IconButton from '../../components/NavButton/NavButton';
 
 
 import styles from './RoundResults.module.css';
+import MenuButton from '../../components/MenuButton/MenuButton';
 
 function RoundResultsPage() {
 
@@ -40,19 +41,17 @@ function RoundResultsPage() {
 			<div className={styles['button-wrapper']}>
 				{!isGameEnd() && <>
 					<Hint isVisible={true}>Если вы ведущий игрок в следующем раунде, нажмите "Выбрать слово". Остальные игроки нажимают "Ввести код"</Hint>
-					<Button onClick={() => {
+					<MenuButton variant='select' onClick={() => {
 						dispatch(gameActions.increaseRoundNumber());
 						navigate('/start');
-					}}>
-					Выбрать слово</Button>
-					<Button onClick={() => {
+					}} />
+					<MenuButton variant='code' onClick={() => {
 						dispatch(gameActions.increaseRoundNumber());
 						navigate('/code');
-					}}>
-					Ввести код</Button>
+					}} />
 				</>}
 
-				{isGameEnd() && <Button onClick={() => navigate('/game-results')}>Результаты игры</Button>}
+				{isGameEnd() && <Button text='Результаты игры' variant='primary' onClick={() => navigate('/game-results')} />}
 			</div>
 		</div>
 	);}

@@ -14,8 +14,8 @@ function RoundLabel() {
 	const iconType = (currentRoundNumber === 2 || currentRoundNumber === 5) ? 'unequal' : 'equal';
 
 	return <div className={styles.round}>
-		<h2 className={styles.title}>Раунд {currentRoundNumber}/6: {roundName}</h2>
 		<div className={styles[iconType]}></div>
+		<h3 className={styles.title}>Раунд {currentRoundNumber}/6: {roundName}</h3>
 	</div>; 
 }
 

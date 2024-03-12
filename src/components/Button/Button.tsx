@@ -1,13 +1,17 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes } from 'react';
+import cn from 'classnames';
+
 import styles from './Button.module.css';
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  type?: 'button' | 'submit' | 'reset' | undefined;
+  text: string;
+  variant: 'primary' | 'transparent';
 }
 
-function Button({ type='button', children, ...props }: ButtonProps) {
-	return <button type={type} className={styles.button} {...props}>{children}</button>;
+function Button({ variant, text }: ButtonProps) {
+	return <button className={cn(styles['button'], styles[variant])}>
+		{text}
+	</button>;
 }
 
 export default Button;

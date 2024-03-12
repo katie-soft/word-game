@@ -3,20 +3,22 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
-import WordLabel from '../../components/WordLabel/WordLabel';
 import Button from '../../components/Button/Button';
 import WordList from '../../components/WordList/WordList';
 import Hint from '../../components/Hint/Hint';
-import IconButton from '../../components/IconButton/IconButton';
+import Confirmation from '../../components/Confirmation/Confirmation';
+import Navigation from '../../components/Navigation/Navigation';
+import PageTitle from '../../components/PageTitle/PageTitle';
 
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 import { getIdFromLocation } from '../../utils/getIdFromLocation';
-import { addBonusPoint, initialScore } from '../../utils/score';
+import { addBonusPoint, increaseScore, decreaseScore, initialScore } from '../../utils/score';
 import { isRoundGoalMatch } from '../../utils/roundInfo';
 
 import styles from './RoundPage.module.css';
-import Confirmation from '../../components/Confirmation/Confirmation';
+import { getWordById } from '../../utils/getWordById';
+import { Word } from '../../types/Word.types';
 
 function RoundPage() {
 
@@ -27,9 +29,11 @@ function RoundPage() {
 	const savedWordList = useSelector((state: RootState) => state.game.rounds.filter(item => item.roundNumber === currentRoundNumber)[0].words);
 
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
-	const initialRoundScore = initialScore(currentRoundNumber);
+	const wordItem: Word = getWordById(wordId); 
+	const wordsFilled = savedWordList.filter(word => word.length);
+	
+	const initialRoundScore = initialScore(currentRoundNumber, wordsFilled.length);
 	const isBlitz = currentRoundNumber === 3 || currentRoundNumber === 6;
-
 
 	const [isChecking, setIsChecking] = useState(false);
 	const [roundScore, setScore] = useState(initialRoundScore);
@@ -67,68 +71,51 @@ function RoundPage() {
 
 	const updateScore = (isChecked: boolean) => {
 		if (!isRoundGoalMatch(currentRoundNumber)) {
-			if (isChecked) {
-				setScore(roundScore - 1);
-			} else {
-				setScore(roundScore + 1);
-			}
+			isChecked ? setScore(decreaseScore(roundScore)) : setScore(increaseScore(roundScore));
 		} else {
-			if (!isChecked) {
-				setScore(roundScore - 1);
-			} else {
-				setScore(roundScore + 1);
-			}
+			!isChecked ? setScore(decreaseScore(roundScore)) : setScore(increaseScore(roundScore));
 		}
 	};
 
-	const goBack = () => {
-		dispatch(gameActions.setRoundScene('code-input'));
-		navigate('/code');
-	};
+	// const goBack = () => {
+	// 	dispatch(gameActions.setRoundScene('code-input'));
+	// 	navigate('/code');
+	// };
 
 	const button = !isChecking ? 
-		<Button onClick={proceedToCheck}>Готово</Button> : 
-		<Button onClick={proceedToResults}>К результатам</Button>;
+		<Button text="Готово" variant="primary" onClick={proceedToCheck} />: 
+		<Button text="К результатам" variant="primary" onClick={proceedToResults} />;
 
-	return (<div className={styles.wrapper}>
+	return (<>
+		<RoundLabel />
+		<div className={styles.wrapper}>
+			{!isBlitz &&<PageTitle>{wordItem.word}</PageTitle>}
+			<Hint 
+				isVisible={hintIsOpen} 
+				close={() => setHintIsOpen(false)}>
+				{hintText}
+			</Hint>
 
-		<div className={styles.header}>
-			<RoundLabel />
-			<div className={styles.buttons}>
-				<IconButton variant='back' onClick={goBack} />
-				<IconButton variant='home' />
-				<IconButton variant='info' onClick={() => setHintIsOpen(!hintIsOpen)} />
-			</div>
+			{isChecking && <span>Счет: {roundScore}</span>}
+
+			<WordList 
+				wordId={wordId} 
+				isChecking={isChecking} 
+				updateScore={updateScore}
+				startWords={savedWordList}
+			></WordList>
+
+			{confirmation ? <Confirmation 
+				text={confirmationText}
+				onConfirm={() => {
+					setIsChecking(true);
+					setConfirmation(false);
+				}}
+				onReject={() => setConfirmation(false)}
+			></Confirmation> : button }
 		</div>
-
-		<Hint 
-			isVisible={hintIsOpen} 
-			close={() => setHintIsOpen(false)}>
-			{hintText}
-		</Hint>
-
-		{isChecking && 
-			<span>Счет: {roundScore}</span>
-		}
-		{!isBlitz && <WordLabel wordId={wordId}></WordLabel>}
-
-		<WordList 
-			wordId={wordId} 
-			isChecking={isChecking} 
-			updateScore={updateScore}
-			startWords={savedWordList}
-		></WordList>
-
-		{confirmation ? <Confirmation 
-			text={confirmationText}
-			onConfirm={() => {
-				setIsChecking(true);
-				setConfirmation(false);
-			}}
-			onReject={() => setConfirmation(false)}
-		></Confirmation> : button }
-
-	</div>);
+		<Navigation />
+	</>);
 }
 
 export default RoundPage;

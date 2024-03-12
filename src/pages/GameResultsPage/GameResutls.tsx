@@ -14,9 +14,9 @@ function GameResultsPage() {
 		<div className={styles.wrapper}>
 			<h2>Игра окончена</h2>
 			<p>Ваш счет: {totalScore}</p>
-			<Button onClick={() => {
+			<Button text='На главную' variant='primary' onClick={() => {
 				navigate('/');
-			}}>На главную</Button>
+			}} />
 		</div>
 	);
 }

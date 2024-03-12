@@ -1,0 +1,10 @@
+.wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: var(--nav-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}

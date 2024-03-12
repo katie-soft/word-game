@@ -1,26 +1,19 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: center;
+  padding: 84px 24px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.buttons {
-  display: flex;
-  gap: 10px;
+.wrapper button {
+  max-width: 155px;
+  margin: 0 auto;
 }
 
 .code {
-  background-color: var(--quaternary-color);
-  border-radius: 15px;
-  padding: 10px;
-  color: var(--background-color);
+  margin-top: 32px; 
+  color: var(--accent-color);
   text-align: center;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
 }

@@ -1,17 +1,18 @@
 .wrapper {
   max-width: 500px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.buttons {
+  width: 180px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.title {
-  font-size: 36px;
-  font-weight: 700;
-  text-align: center;
-  margin: 10px;
 }
 
 .close {

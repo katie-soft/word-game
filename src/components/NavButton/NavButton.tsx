@@ -1,14 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 
-import styles from './IconButton.module.css';
+import styles from './NavButton.module.css';
 
-type IconButtonProps = {
-	variant: 'home' | 'info' | 'back';
+type NavButtonProps = {
+	variant: 'home' | 'results' | 'hint' | 'back';
 	onClick?: () => void;
 }
 
-function IconButton({ variant, onClick }: IconButtonProps) {
+const buttonText = {
+	home: 'Домой',
+	results: 'Результаты',
+	hint: 'Подсказка',
+	back: 'Назад'
+};
+
+function NavButton({ variant, onClick }: NavButtonProps) {
 
 	const navigate = useNavigate();
 
@@ -16,7 +23,8 @@ function IconButton({ variant, onClick }: IconButtonProps) {
 
 	return <button className={cn(styles['button'], styles[variant])} onClick={buttonEffect}>
 		<div className={styles.icon}></div>
+		{buttonText[variant]}
 	</button>;
 }
 
-export default IconButton;
+export default NavButton;
