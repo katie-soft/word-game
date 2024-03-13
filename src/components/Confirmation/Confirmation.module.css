@@ -25,10 +25,10 @@
 }
 
 .confirm {
-  background-image: url('../../assets/check-icon.svg');
+  background-image: url('../../assets/check.svg');
 }
 
 .reject {
-  background-image: url('../../assets/delete-icon.svg');
+  background-image: url('../../assets/close-icon.svg');
 }
 
