@@ -1,0 +1,13 @@
+.close {
+  width: 16px;
+  height: 16px;
+  background-image: url('../../assets/close.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  outline: none;
+}

@@ -1,9 +1,18 @@
 .round {
   display: flex;
   justify-content: center;
-  gap: 8px;
   background-color: var(--nav-color);
   padding: 16px;
+}
+
+.round:has(.score) {
+  justify-content: space-between;
+}
+
+.info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .title {
@@ -13,7 +22,7 @@
   font-weight: 500;
 }
 
-.round div {
+.info div {
   width: 24px;
   height: 24px;
   background-size: contain;
@@ -26,4 +35,10 @@
 
 .unequal {
   background-image: url('../../assets/lark.svg');
+}
+
+.score {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent-color);
 }

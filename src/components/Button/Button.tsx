@@ -6,10 +6,11 @@ import styles from './Button.module.css';
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   text: string;
   variant: 'primary' | 'transparent';
+	onClick?: () => void;
 }
 
-function Button({ variant, text }: ButtonProps) {
-	return <button className={cn(styles['button'], styles[variant])}>
+function Button({ variant, text, onClick }: ButtonProps) {
+	return <button className={cn(styles['button'], styles[variant])} onClick={onClick}>
 		{text}
 	</button>;
 }

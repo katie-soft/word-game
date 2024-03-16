@@ -1,10 +1,12 @@
 import { ReactNode } from 'react';
+import CloseButton from '../CloseButton/CloseButton';
+
 import styles from './Hint.module.css';
 
 type HintProps = {
 	isError?: boolean;
 	isVisible: boolean;
-	close?: () => void;
+	close: () => void;
 	children: ReactNode;
 }
 
@@ -14,7 +16,7 @@ function Hint({ isError=false, isVisible=true, close, children }: HintProps) {
 		return (
 			<div className={isError ? styles.error : styles.hint}>
 				{children}
-				<div className={styles.icon} onClick={close}></div>
+				<CloseButton onClick={() => close()}/>
 			</div>
 		);
 	}

@@ -9,11 +9,3 @@
   max-width: 155px;
   margin: 0 auto;
 }
-
-.code {
-  margin-top: 32px; 
-  color: var(--accent-color);
-  text-align: center;
-  font-size: 20px;
-  font-weight: 500;
-}

@@ -13,12 +13,16 @@ import PageTitle from '../../components/PageTitle/PageTitle';
 import { getWordById } from '../../utils/getWordById';
 import { Word } from '../../types/Word.types';
 import Navigation from '../../components/Navigation/Navigation';
+import AccentTitle from '../../components/AccentTitle/AccentTitle';
+import { useState } from 'react';
 
 
 function WordPage() {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const [hintIsOpen, setHintIsOpen] = useState(true);
 	
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
 	const wordItem: Word = getWordById(wordId);
@@ -38,8 +42,8 @@ function WordPage() {
 		<RoundLabel />
 		<div className={styles.wrapper}>
 			<PageTitle>{wordItem.word}</PageTitle>
-			<div className={styles.code}>Код слова: {wordId}</div>
-			<Hint isVisible={true}>Скажите этот код другим участникам</Hint>
+			<AccentTitle>Код слова: {wordId}</AccentTitle>
+			<Hint isVisible={hintIsOpen} close={() => setHintIsOpen(false)}>Скажите этот код другим участникам</Hint>
 			<MenuButton variant='proceed' onClick={() => {
 				dispatch(gameActions.setRoundScene('word-input'));
 				navigate(`/round/${wordId}`);

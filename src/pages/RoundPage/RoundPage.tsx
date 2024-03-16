@@ -6,7 +6,7 @@ import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Button from '../../components/Button/Button';
 import WordList from '../../components/WordList/WordList';
 import Hint from '../../components/Hint/Hint';
-import Confirmation from '../../components/Confirmation/Confirmation';
+// import Confirmation from '../../components/Confirmation/Confirmation';
 import Navigation from '../../components/Navigation/Navigation';
 import PageTitle from '../../components/PageTitle/PageTitle';
 
@@ -19,6 +19,8 @@ import { isRoundGoalMatch } from '../../utils/roundInfo';
 import styles from './RoundPage.module.css';
 import { getWordById } from '../../utils/getWordById';
 import { Word } from '../../types/Word.types';
+import Modal from '../../components/Modal/Modal';
+import CloseButton from '../../components/CloseButton/CloseButton';
 
 function RoundPage() {
 
@@ -55,9 +57,14 @@ function RoundPage() {
 	};
 
 	const proceedToCheck = () => {
+		setConfirmation(false);
+		setIsChecking(true);
+		dispatch(gameActions.setRoundScene('score-count'));
+	};
+
+	const checkEmptyCells = () => {
 		if (noEmptyCells()) {
-			setIsChecking(true);
-			dispatch(gameActions.setRoundScene('score-count'));
+			proceedToCheck();
 		} else {
 			setConfirmation(true);
 		}
@@ -83,39 +90,36 @@ function RoundPage() {
 	// };
 
 	const button = !isChecking ? 
-		<Button text="Готово" variant="primary" onClick={proceedToCheck} />: 
+		<Button text="Готово" variant="primary" onClick={checkEmptyCells} />: 
 		<Button text="К результатам" variant="primary" onClick={proceedToResults} />;
 
-	return (<>
-		<RoundLabel />
-		<div className={styles.wrapper}>
-			{!isBlitz &&<PageTitle>{wordItem.word}</PageTitle>}
-			<Hint 
-				isVisible={hintIsOpen} 
-				close={() => setHintIsOpen(false)}>
-				{hintText}
-			</Hint>
+	return (
+		<>
+			{isChecking ? <RoundLabel score={roundScore} /> : <RoundLabel />}
+			
+			<div className={styles.wrapper}>
+				{!isBlitz &&<PageTitle>{wordItem.word}</PageTitle>}
+				<Hint 
+					isVisible={hintIsOpen} 
+					close={() => setHintIsOpen(false)}>
+					{hintText}
+				</Hint>
 
-			{isChecking && <span>Счет: {roundScore}</span>}
+				<WordList
+					wordId={wordId}
+					isChecking={isChecking}
+					updateScore={updateScore}
+					startWords={savedWordList}
+				></WordList>
 
-			<WordList 
-				wordId={wordId} 
-				isChecking={isChecking} 
-				updateScore={updateScore}
-				startWords={savedWordList}
-			></WordList>
-
-			{confirmation ? <Confirmation 
-				text={confirmationText}
-				onConfirm={() => {
-					setIsChecking(true);
-					setConfirmation(false);
-				}}
-				onReject={() => setConfirmation(false)}
-			></Confirmation> : button }
-		</div>
-		<Navigation />
-	</>);
+				{confirmation ? <Modal open={confirmation}>
+					<p>{confirmationText}</p>
+					<CloseButton onClick={() => setConfirmation(false)} />
+					<Button text='Отменить' variant='transparent' onClick={() => setConfirmation(false)}></Button>
+					<Button text='Перейти к подсчету' variant='transparent' onClick={() => proceedToCheck()}></Button>
+				</Modal> : button}
+			</div><Navigation /></>
+	);
 }
 
 export default RoundPage;

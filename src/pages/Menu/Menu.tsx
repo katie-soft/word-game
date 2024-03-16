@@ -9,6 +9,7 @@ import { gameActions } from '../../store/game.slice';
 
 import styles from './Menu.module.css';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import CloseButton from '../../components/CloseButton/CloseButton';
 
 function Menu() {
 
@@ -30,7 +31,7 @@ function Menu() {
 			</div>
 			<Modal open={isModalOpen}>
 				<p>Здесь будут правила игры</p>
-				<button className={styles.close} onClick={() => setIsModalOpen(false)}></button>
+				<CloseButton onClick={() => setIsModalOpen(false)} />
 			</Modal>
 		</div>
 	);

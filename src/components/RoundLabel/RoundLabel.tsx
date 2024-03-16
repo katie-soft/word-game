@@ -5,7 +5,11 @@ import { getRoundType } from '../../utils/roundInfo';
 
 import styles from './RoundLabel.module.css';
 
-function RoundLabel() {
+type RoundLabelProps = {
+	score?: number
+}
+
+function RoundLabel({ score }: RoundLabelProps) {
 
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 	const roundId = getRoundType(currentRoundNumber);
@@ -14,8 +18,11 @@ function RoundLabel() {
 	const iconType = (currentRoundNumber === 2 || currentRoundNumber === 5) ? 'unequal' : 'equal';
 
 	return <div className={styles.round}>
-		<div className={styles[iconType]}></div>
-		<h3 className={styles.title}>Раунд {currentRoundNumber}/6: {roundName}</h3>
+		<div className={styles.info}>
+			<div className={styles[iconType]}></div>
+			<h3 className={styles.title}>Раунд {currentRoundNumber}/6: {roundName}</h3>
+		</div>
+		{score >= 0 && <span className={styles.score}>Счет: {score}</span>}
 	</div>; 
 }
 

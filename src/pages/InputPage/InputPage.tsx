@@ -66,7 +66,7 @@ function InputPage() {
 				<Hint isVisible={hintIsOpen} 
 					close={() => setHintIsOpen(false)}>Введите код слова, которое выбрал ведущий игрок</Hint>
 				<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
-				{isError && <Hint isVisible={true} isError>Неверный код. Попробуйте еще раз</Hint>}
+				{isError && <Hint isVisible={true} close={() => setHintIsOpen(false)}>Неверный код. Попробуйте еще раз</Hint>}
 				<Button text='Далее' variant='primary' onClick={proceedWithCode} />
 			</div>
 			<Navigation />

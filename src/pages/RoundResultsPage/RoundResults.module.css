@@ -1,7 +1,21 @@
-.button-wrapper {
+.page-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: center;
+  padding: 140px 24px 24px;
+}
+
+.result {
+  margin-top: 40px;
+  color: var(--accent-color);
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 16px;
 }
 
 .header {

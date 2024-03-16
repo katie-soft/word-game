@@ -1,23 +1,25 @@
 @import './vars.css';
 
-:root {
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+#root {
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100%;
+  
   font-family: var(--font);
   line-height: 1.5;
   font-weight: 400;
 
   color: #FFFFFF;
-  background-color: var(--background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-body {
-  margin: 0;
 }
 

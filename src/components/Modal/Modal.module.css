@@ -2,7 +2,18 @@
   width: 80vw;
   height: 80vh;
   border-radius: var(--border-radius);
-  border-color: var(--quaternary-color);
-  background-color: #FFFFFF;
-  color: var(--background-color);
+  border-color: var(--secondary-color);
+  border-width: 1px;
+  background-color: var(--light-color);
+  color: #000000;
+  font-size: 14px;
+  padding: 12px;
+  margin-top: 32px;
+  z-index: 10;
 } 
+
+.modal p {
+  font-family: var(--font);
+  line-height: 1.5;
+  font-weight: 400;
+}

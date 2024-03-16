@@ -1,4 +1,8 @@
-.wrapper {
+.page-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  padding: 140px 24px 24px;
 }
