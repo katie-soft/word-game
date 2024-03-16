@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Card from '../../components/Card/Card';
@@ -19,6 +20,8 @@ function Start() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 
+	const [hintIsOpen, setHintIsOpen] = useState(true);
+
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 	const currentRoundType = getRoundType(currentRoundNumber);
 
@@ -37,21 +40,21 @@ function Start() {
 
 	const [ firstWord, secondWord ] = wordIds;
 
-	// const goBack = () => {
-	// 	dispatch(gameActions.setRoundScene(''));
-	// 	if (currentRoundNumber === 1) {
-	// 		navigate('/new-game');
-	// 	} else {
-	// 		dispatch(gameActions.decreaseRoundNumber());
-	// 		navigate('/round-results');
-	// 	}
-	// };
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene(''));
+		if (currentRoundNumber === 1) {
+			navigate('/new-game');
+		} else {
+			dispatch(gameActions.decreaseRoundNumber());
+			navigate('/round-results');
+		}
+	};
 
 	return (
 		<>
 			<RoundLabel />
 			<div className={styles.wrapper}>
-				<Hint isVisible={true}>Выберите слово для этого раунда</Hint>
+				<Hint isVisible={hintIsOpen} close={() => setHintIsOpen(false)}>Выберите слово для этого раунда</Hint>
 				<Card wordId={firstWord} onClick={() => {
 					dispatch(gameActions.setRoundScene('show-code'));
 					dispatch(gameActions.setWordId(firstWord));
@@ -63,7 +66,7 @@ function Start() {
 					navigate(`/words/${secondWord}`);
 				}}></Card>
 			</div>
-			<Navigation/>
+			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
 		</>
 
 	);

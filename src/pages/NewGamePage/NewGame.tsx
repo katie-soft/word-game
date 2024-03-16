@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import Hint from '../../components/Hint/Hint';
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
@@ -9,16 +10,20 @@ import styles from './NewGame.module.css';
 import MenuButton from '../../components/MenuButton/MenuButton';
 import Navigation from '../../components/Navigation/Navigation';
 
+
 function NewGame() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const [hintIsOpen, setHintIsOpen] = useState(true);
+
 	return (
 		<>
 			<RoundLabel />
 			<div className={styles.wrapper}>
-				<Hint isVisible>Если вы ведущий игрок, нажмите "Выбрать&nbsp;слово".<br></br> Остальные игроки нажимают "Ввести&nbsp;код". </Hint>
+				<Hint isVisible={hintIsOpen} 
+					close={() => setHintIsOpen(false)}>Если вы ведущий игрок, нажмите "Выбрать&nbsp;слово".<br></br> Остальные игроки нажимают "Ввести&nbsp;код". </Hint>
 				<div className={styles.buttons}>
 					<MenuButton variant='select' onClick={() => {
 						dispatch(gameActions.setRoundScene('word-select'));
@@ -30,7 +35,7 @@ function NewGame() {
 					}} />
 				</div>
 			</div>
-			<Navigation />
+			<Navigation openHint={() => setHintIsOpen(true)} />
 		</>
 		
 	);

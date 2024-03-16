@@ -1,21 +1,22 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getIdFromLocation } from '../../utils/getIdFromLocation';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Hint from '../../components/Hint/Hint';
 import MenuButton from '../../components/MenuButton/MenuButton';
 
-import styles from './Word.module.css';
-import { useDispatch } from 'react-redux';
 import { gameActions } from '../../store/game.slice';
-// import { RootState } from '../../store/store';
-import PageTitle from '../../components/PageTitle/PageTitle';
 import { getWordById } from '../../utils/getWordById';
 import { Word } from '../../types/Word.types';
+import { RootState } from '../../store/store';
+import { getIdFromLocation } from '../../utils/getIdFromLocation';
+
+import PageTitle from '../../components/PageTitle/PageTitle';
 import Navigation from '../../components/Navigation/Navigation';
 import AccentTitle from '../../components/AccentTitle/AccentTitle';
-import { useState } from 'react';
 
+import styles from './Word.module.css';
 
 function WordPage() {
 
@@ -26,17 +27,17 @@ function WordPage() {
 	
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
 	const wordItem: Word = getWordById(wordId);
-	// const { currentRoundNumber } = useSelector((state: RootState) => state.game);
+	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 
-	// const goBack = () => {
-	// 	dispatch(gameActions.setRoundScene(''));
-	// 	if (currentRoundNumber === 1) {
-	// 		navigate('/new-game');
-	// 	} else {
-	// 		dispatch(gameActions.decreaseRoundNumber());
-	// 		navigate('/round-results');
-	// 	}
-	// };
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene(''));
+		if (currentRoundNumber === 1) {
+			navigate('/new-game');
+		} else {
+			dispatch(gameActions.decreaseRoundNumber());
+			navigate('/round-results');
+		}
+	};
 
 	return <>
 		<RoundLabel />
@@ -49,7 +50,7 @@ function WordPage() {
 				navigate(`/round/${wordId}`);
 			}} />
 		</div>
-		<Navigation />
+		<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
 	</>;
 }
 

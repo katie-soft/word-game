@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../components/Button/Button';
 import CodeInput from '../../components/CodeInput/CodeInput';
 import Hint from '../../components/Hint/Hint';
 
-import { AppDispatch } from '../../store/store';
+import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 import { loadState } from '../../utils/localStorage';
 import { getWordById } from '../../utils/getWordById';
@@ -28,7 +28,7 @@ function InputPage() {
 	const [isError, setIsError] = useState(false);
 	const [hintIsOpen, setHintIsOpen] = useState(true);
 
-	// const { currentRoundNumber } = useSelector((state: RootState) => state.game);
+	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 
 	const isCodeCorrect = (code: string) => {
 		return getWordById(code) ? true : false;
@@ -49,15 +49,15 @@ function InputPage() {
 		setWordId(event.target.value.toUpperCase());
 	};
 
-	// const goBack = () => {
-	// 	dispatch(gameActions.setRoundScene(''));
-	// 	if (currentRoundNumber === 1) {
-	// 		navigate('/new-game');
-	// 	} else {
-	// 		dispatch(gameActions.decreaseRoundNumber());
-	// 		navigate('/round-results');
-	// 	}
-	// };
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene(''));
+		if (currentRoundNumber === 1) {
+			navigate('/new-game');
+		} else {
+			dispatch(gameActions.decreaseRoundNumber());
+			navigate('/round-results');
+		}
+	};
 
 	return (
 		<>
@@ -69,7 +69,7 @@ function InputPage() {
 				{isError && <Hint isVisible={true} close={() => setHintIsOpen(false)}>Неверный код. Попробуйте еще раз</Hint>}
 				<Button text='Далее' variant='primary' onClick={proceedWithCode} />
 			</div>
-			<Navigation />
+			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack}/>
 		</>
 	
 	);

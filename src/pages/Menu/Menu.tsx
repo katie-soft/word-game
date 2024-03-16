@@ -29,7 +29,7 @@ function Menu() {
 				<MenuButton variant='proceed' onClick={() => navigate('/continue')}>Продолжить</MenuButton>
 				<MenuButton variant='rules' onClick={() => setIsModalOpen(true)} />
 			</div>
-			<Modal open={isModalOpen}>
+			<Modal isOpen={isModalOpen}>
 				<p>Здесь будут правила игры</p>
 				<CloseButton onClick={() => setIsModalOpen(false)} />
 			</Modal>

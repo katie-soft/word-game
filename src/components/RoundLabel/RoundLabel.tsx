@@ -17,12 +17,14 @@ function RoundLabel({ score }: RoundLabelProps) {
 
 	const iconType = (currentRoundNumber === 2 || currentRoundNumber === 5) ? 'unequal' : 'equal';
 
+	const withScore = score !== undefined;
+
 	return <div className={styles.round}>
 		<div className={styles.info}>
 			<div className={styles[iconType]}></div>
 			<h3 className={styles.title}>Раунд {currentRoundNumber}/6: {roundName}</h3>
 		</div>
-		{score >= 0 && <span className={styles.score}>Счет: {score}</span>}
+		{withScore && <span className={styles.score}>Счет: {score}</span>}
 	</div>; 
 }
 

@@ -1,6 +1,7 @@
 .close {
   width: 16px;
   height: 16px;
+  background-color: transparent;
   background-image: url('../../assets/close.svg');
   background-repeat: no-repeat;
   background-size: cover;

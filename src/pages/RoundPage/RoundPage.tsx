@@ -6,7 +6,6 @@ import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Button from '../../components/Button/Button';
 import WordList from '../../components/WordList/WordList';
 import Hint from '../../components/Hint/Hint';
-// import Confirmation from '../../components/Confirmation/Confirmation';
 import Navigation from '../../components/Navigation/Navigation';
 import PageTitle from '../../components/PageTitle/PageTitle';
 
@@ -84,10 +83,10 @@ function RoundPage() {
 		}
 	};
 
-	// const goBack = () => {
-	// 	dispatch(gameActions.setRoundScene('code-input'));
-	// 	navigate('/code');
-	// };
+	const goBack = () => {
+		dispatch(gameActions.setRoundScene('code-input'));
+		navigate('/code');
+	};
 
 	const button = !isChecking ? 
 		<Button text="Готово" variant="primary" onClick={checkEmptyCells} />: 
@@ -112,13 +111,15 @@ function RoundPage() {
 					startWords={savedWordList}
 				></WordList>
 
-				{confirmation ? <Modal open={confirmation}>
+				{confirmation ? <Modal isOpen={confirmation}>
 					<p>{confirmationText}</p>
 					<CloseButton onClick={() => setConfirmation(false)} />
 					<Button text='Отменить' variant='transparent' onClick={() => setConfirmation(false)}></Button>
 					<Button text='Перейти к подсчету' variant='transparent' onClick={() => proceedToCheck()}></Button>
 				</Modal> : button}
-			</div><Navigation /></>
+			</div>
+			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
+		</>
 	);
 }
 

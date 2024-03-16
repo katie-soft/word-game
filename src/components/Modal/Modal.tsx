@@ -4,15 +4,15 @@ import styles from './Modal.module.css';
 
 type ModalProps = {
   children: ReactNode;
-  open: boolean;
+  isOpen: boolean;
 }
 
 const modalDiv = document.getElementById('modal') as HTMLElement;
 
-function Modal({ children, open }: ModalProps) {
+function Modal({ children, isOpen }: ModalProps) {
 
 	return createPortal(
-		<dialog className={styles.modal} open={open}>
+		<dialog className={styles.modal} open={isOpen}>
 			{children}
 		</dialog>,
 		modalDiv
