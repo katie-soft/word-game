@@ -7,3 +7,7 @@ export function getRoundType(roundNumber: number): number {
 export function isRoundGoalMatch(roundNumber: number): boolean {
 	return (roundNumber !== 2) && (roundNumber !== 5);
 }
+
+export function checkIsBlitz (roundNumber: number) {
+	return (roundNumber === 3 || roundNumber === 6);
+}

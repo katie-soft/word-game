@@ -58,7 +58,7 @@ function RoundResultsPage() {
 
 			{isGameEnd() && <Button text='Результаты игры' variant='primary' onClick={() => navigate('/game-results')} />}
 		</Wrapper>
-		<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack}/>
+		<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack}/>
 	</Layout>
 	);}
 

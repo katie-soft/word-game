@@ -51,7 +51,7 @@ function WordPage() {
 				navigate(`/round/${wordId}`);
 			}} />
 		</Wrapper>
-		<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
+		<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack} />
 	</Layout>;
 }
 

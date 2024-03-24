@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
@@ -8,19 +8,21 @@ import WordList from '../../components/WordList/WordList';
 import Hint from '../../components/Hint/Hint';
 import Navigation from '../../components/Navigation/Navigation';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import Modal from '../../components/Modal/Modal';
+import CloseButton from '../../components/CloseButton/CloseButton';
+import Layout from '../../components/Layout/Layout';
+import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 import { getIdFromLocation } from '../../utils/getIdFromLocation';
 import { addBonusPoint, increaseScore, decreaseScore, initialScore } from '../../utils/score';
-import { isRoundGoalMatch } from '../../utils/roundInfo';
-
+import { checkIsBlitz, isRoundGoalMatch } from '../../utils/roundInfo';
 import { getWordById } from '../../utils/getWordById';
+import { confirmationText, showHintText } from '../../utils/showHintText';
 import { Word } from '../../types/Word.types';
-import Modal from '../../components/Modal/Modal';
-import CloseButton from '../../components/CloseButton/CloseButton';
-import Layout from '../../components/Layout/Layout';
-import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
+
+import styles from './RoundPage.module.css';
 
 function RoundPage() {
 
@@ -33,19 +35,16 @@ function RoundPage() {
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
 	const wordItem: Word = getWordById(wordId); 
 	const wordsFilled = savedWordList.filter(word => word.length);
-	
-	const initialRoundScore = initialScore(currentRoundNumber, wordsFilled.length);
-	const isBlitz = currentRoundNumber === 3 || currentRoundNumber === 6;
+		
+	const isBlitz = checkIsBlitz(currentRoundNumber);
 
 	const [isChecking, setIsChecking] = useState(false);
-	const [roundScore, setScore] = useState(initialRoundScore);
+	const [roundScore, setScore] = useState(0);
 
 	const [hintIsOpen, setHintIsOpen] = useState(true);
-	const hintTextStart = isRoundGoalMatch(currentRoundNumber) ? 'Придумайте такие ассоциации, которые совпадут с ассоциациями других игроков' : 'Придумайте такие ассоциации, которые НЕ совпадут с ассоциациями других игроков';
-	const hintText = !isChecking ? hintTextStart : 'Отметьте те слова, которые совпали у вас и других игроков';
+	const hintText = showHintText(isChecking, currentRoundNumber, wordId);
 
 	const [confirmation, setConfirmation] = useState(false);
-	const confirmationText = 'Уверены, что хотите перейти к подсчету очков?';
 
 	const noEmptyCells = () => {
 		for (let i = 0; i < savedWordList.length; i++) {
@@ -56,18 +55,19 @@ function RoundPage() {
 		return true;
 	};
 
-	const proceedToCheck = () => {
-		setConfirmation(false);
-		setIsChecking(true);
-		dispatch(gameActions.setRoundScene('score-count'));
-	};
-
 	const checkEmptyCells = () => {
+		setScore(initialScore(currentRoundNumber, wordsFilled.length));
 		if (noEmptyCells()) {
 			proceedToCheck();
 		} else {
 			setConfirmation(true);
 		}
+	};
+
+	const proceedToCheck = () => {
+		setConfirmation(false);
+		setIsChecking(true);
+		dispatch(gameActions.setRoundScene('score-count'));
 	};
 
 	const proceedToResults = () => {
@@ -115,11 +115,13 @@ function RoundPage() {
 				{confirmation ? <Modal isOpen={confirmation}>
 					<p>{confirmationText}</p>
 					<CloseButton onClick={() => setConfirmation(false)} />
-					<Button text='Отменить' variant='transparent' onClick={() => setConfirmation(false)}></Button>
-					<Button text='Перейти к подсчету' variant='transparent' onClick={() => proceedToCheck()}></Button>
+					<div className={styles.buttons}>
+						<Button text='Отменить' variant='transparent' onClick={() => setConfirmation(false)}></Button>
+						<Button text='Перейти к подсчету' variant='transparent' onClick={() => proceedToCheck()}></Button>
+					</div>
 				</Modal> : button}
 			</Wrapper>
-			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
+			<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack} />
 		</Layout>
 	);
 }

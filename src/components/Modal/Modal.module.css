@@ -2,10 +2,10 @@
   border: none;
   border-radius: var(--border-radius);
   background-color: var(--nav-color);
-  padding: 12px;
-  margin-top: 32px;
+  padding: 20px;
   z-index: 10;
   width: 75%;
+  max-width: 280px;
   position: absolute;
   top: 30%;
 } 

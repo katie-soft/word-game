@@ -67,7 +67,7 @@ function Start() {
 					navigate(`/words/${secondWord}`);
 				}}></Card>
 			</Wrapper>
-			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
+			<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack} />
 		</Layout>
 
 	);

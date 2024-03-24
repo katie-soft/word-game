@@ -37,7 +37,7 @@ function NewGame() {
 					}} />
 				</div>
 			</Wrapper>
-			<Navigation openHint={() => setHintIsOpen(true)} />
+			<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} />
 		</Layout>
 		
 	);

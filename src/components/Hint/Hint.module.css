@@ -9,7 +9,6 @@
 }
 
 .error {
-  border-color: var(--secondary-color);
-  color: var(--secondary-color);
+  color: #d34949;
   text-align: center;
 }
