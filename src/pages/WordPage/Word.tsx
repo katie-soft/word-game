@@ -16,7 +16,8 @@ import PageTitle from '../../components/PageTitle/PageTitle';
 import Navigation from '../../components/Navigation/Navigation';
 import AccentTitle from '../../components/AccentTitle/AccentTitle';
 
-import styles from './Word.module.css';
+import Layout from '../../components/Layout/Layout';
+import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 function WordPage() {
 
@@ -39,19 +40,19 @@ function WordPage() {
 		}
 	};
 
-	return <>
+	return <Layout>
 		<RoundLabel />
-		<div className={styles.wrapper}>
+		<Wrapper>
 			<PageTitle>{wordItem.word}</PageTitle>
 			<AccentTitle>Код слова: {wordId}</AccentTitle>
 			<Hint isVisible={hintIsOpen} close={() => setHintIsOpen(false)}>Скажите этот код другим участникам</Hint>
-			<MenuButton variant='proceed' onClick={() => {
+			<MenuButton variant='proceed' isCentered onClick={() => {
 				dispatch(gameActions.setRoundScene('word-input'));
 				navigate(`/round/${wordId}`);
 			}} />
-		</div>
+		</Wrapper>
 		<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
-	</>;
+	</Layout>;
 }
 
 export default WordPage;

@@ -5,6 +5,7 @@ import styles from './MenuButton.module.css';
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   variant: 'start' | 'code' | 'proceed' | 'rules' | 'select';
+	isCentered?: boolean;
 }
 
 const menuButtonText = {
@@ -15,8 +16,8 @@ const menuButtonText = {
 	select: 'Выбрать слово'
 };
 
-function Button({ variant, ...props }: ButtonProps) {
-	return <button className={cn(styles['button'], styles[variant])} {...props}>
+function Button({ variant, isCentered, ...props }: ButtonProps) {
+	return <button className={cn(styles['button'], styles[variant], {[styles.centered]: isCentered})} {...props}>
 		<div className={styles.icon}></div>
 		{menuButtonText[variant]}
 	</button>;

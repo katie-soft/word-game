@@ -11,9 +11,10 @@ import { gameActions } from '../../store/game.slice';
 import { loadState } from '../../utils/localStorage';
 import { getWordById } from '../../utils/getWordById';
 
-import styles from './InputPage.module.css';
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Navigation from '../../components/Navigation/Navigation';
+import Layout from '../../components/Layout/Layout';
+import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 function InputPage() {
 
@@ -60,17 +61,17 @@ function InputPage() {
 	};
 
 	return (
-		<>
+		<Layout>
 			<RoundLabel></RoundLabel>
-			<div className={styles.wrapper}>
+			<Wrapper>
 				<Hint isVisible={hintIsOpen} 
 					close={() => setHintIsOpen(false)}>Введите код слова, которое выбрал ведущий игрок</Hint>
 				<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
 				{isError && <Hint isVisible={true} close={() => setHintIsOpen(false)}>Неверный код. Попробуйте еще раз</Hint>}
 				<Button text='Далее' variant='primary' onClick={proceedWithCode} />
-			</div>
+			</Wrapper>
 			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack}/>
-		</>
+		</Layout>
 	
 	);
 }

@@ -15,11 +15,12 @@ import { getIdFromLocation } from '../../utils/getIdFromLocation';
 import { addBonusPoint, increaseScore, decreaseScore, initialScore } from '../../utils/score';
 import { isRoundGoalMatch } from '../../utils/roundInfo';
 
-import styles from './RoundPage.module.css';
 import { getWordById } from '../../utils/getWordById';
 import { Word } from '../../types/Word.types';
 import Modal from '../../components/Modal/Modal';
 import CloseButton from '../../components/CloseButton/CloseButton';
+import Layout from '../../components/Layout/Layout';
+import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 function RoundPage() {
 
@@ -93,10 +94,10 @@ function RoundPage() {
 		<Button text="К результатам" variant="primary" onClick={proceedToResults} />;
 
 	return (
-		<>
+		<Layout>
 			{isChecking ? <RoundLabel score={roundScore} /> : <RoundLabel />}
 			
-			<div className={styles.wrapper}>
+			<Wrapper>
 				{!isBlitz &&<PageTitle>{wordItem.word}</PageTitle>}
 				<Hint 
 					isVisible={hintIsOpen} 
@@ -117,9 +118,9 @@ function RoundPage() {
 					<Button text='Отменить' variant='transparent' onClick={() => setConfirmation(false)}></Button>
 					<Button text='Перейти к подсчету' variant='transparent' onClick={() => proceedToCheck()}></Button>
 				</Modal> : button}
-			</div>
+			</Wrapper>
 			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
-		</>
+		</Layout>
 	);
 }
 

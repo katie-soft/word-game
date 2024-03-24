@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 24px;
+}
+
+.offset_top_large {
+  padding-top: 140px;
+}
+
+.offset_top_medium {
+  padding-top: 64px;
+}

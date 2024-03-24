@@ -13,7 +13,8 @@ import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
 import { getRoundType } from '../../utils/roundInfo';
 
-import styles from './Start.module.css';
+import Layout from '../../components/Layout/Layout';
+import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 function Start() {
 
@@ -51,9 +52,9 @@ function Start() {
 	};
 
 	return (
-		<>
+		<Layout>
 			<RoundLabel />
-			<div className={styles.wrapper}>
+			<Wrapper>
 				<Hint isVisible={hintIsOpen} close={() => setHintIsOpen(false)}>Выберите слово для этого раунда</Hint>
 				<Card wordId={firstWord} onClick={() => {
 					dispatch(gameActions.setRoundScene('show-code'));
@@ -65,9 +66,9 @@ function Start() {
 					dispatch(gameActions.setWordId(secondWord));
 					navigate(`/words/${secondWord}`);
 				}}></Card>
-			</div>
+			</Wrapper>
 			<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack} />
-		</>
+		</Layout>
 
 	);
 }

@@ -12,6 +12,8 @@ import PageTitle from '../../components/PageTitle/PageTitle';
 import Navigation from '../../components/Navigation/Navigation';
 
 import styles from './RoundResults.module.css';
+import Layout from '../../components/Layout/Layout';
+import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 function RoundResultsPage() {
 
@@ -34,8 +36,8 @@ function RoundResultsPage() {
 		navigate(`/round/${wordId}`);
 	};
 
-	return (<>
-		<div className={styles['page-wrapper']}>
+	return (<Layout>
+		<Wrapper hasTopOffset>
 			<PageTitle>Раунд {currentRoundNumber}/6 окончен</PageTitle>
 			<p className={styles.result}>Ваш счет в этом раунде: {roundScore}</p>
 			{!isGameEnd() && <>
@@ -55,9 +57,9 @@ function RoundResultsPage() {
 			</>}
 
 			{isGameEnd() && <Button text='Результаты игры' variant='primary' onClick={() => navigate('/game-results')} />}
-		</div>
+		</Wrapper>
 		<Navigation openHint={() => setHintIsOpen(true)} goBack={goBack}/>
-	</>
+	</Layout>
 	);}
 
 export default RoundResultsPage;

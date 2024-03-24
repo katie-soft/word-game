@@ -16,6 +16,11 @@
   cursor: pointer;
 }
 
+.centered {
+  align-self: center;
+  width: auto;
+}
+
 .start, .select {
   background-color: var(--primary-color);
 }
