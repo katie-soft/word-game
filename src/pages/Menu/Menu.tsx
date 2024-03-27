@@ -10,6 +10,8 @@ import { gameActions } from '../../store/game.slice';
 import styles from './Menu.module.css';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import CloseButton from '../../components/CloseButton/CloseButton';
+import { loadState } from '../../utils/localStorage';
+import { set } from '../../store/hint.slice';
 
 function Menu() {
 
@@ -18,14 +20,19 @@ function Menu() {
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	const start = () => {
+		dispatch(gameActions.startNewGame());
+		if (!loadState('hintIsOpen')) {
+			dispatch(set(true));
+		}
+		navigate('/new-game');
+	};
+
 	return (
 		<div className={styles.wrapper}>
 			<PageTitle>Игра в ассоциации</PageTitle>
 			<div className={styles.buttons}>
-				<MenuButton variant='start' onClick={() => {
-					dispatch(gameActions.startNewGame());
-					navigate('/new-game');
-				}} />
+				<MenuButton variant='start' onClick={() => start()} />
 				<MenuButton variant='proceed' onClick={() => navigate('/continue')}>Продолжить</MenuButton>
 				<MenuButton variant='rules' onClick={() => setIsModalOpen(true)} />
 			</div>

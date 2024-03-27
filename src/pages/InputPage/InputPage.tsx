@@ -26,7 +26,6 @@ function InputPage() {
 
 	const [wordId, setWordId] = useState('');
 	const [isError, setIsError] = useState(false);
-	const [hintIsOpen, setHintIsOpen] = useState(true);
 
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 
@@ -63,13 +62,12 @@ function InputPage() {
 		<Layout>
 			<RoundLabel></RoundLabel>
 			<Wrapper hasTopOffset>
-				<Hint isVisible={hintIsOpen} 
-					close={() => setHintIsOpen(false)}>Введите код слова, которое выбрал ведущий игрок</Hint>
+				<Hint>Введите код слова, которое выбрал ведущий игрок</Hint>
 				<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
-				{isError && <Hint isVisible={true} isError close={() => setHintIsOpen(false)}>Неверный код. Попробуйте еще раз</Hint>}
+				{isError && <Hint isError>Неверный код. Попробуйте еще раз</Hint>}
 				<Button text='Далее' variant='primary' onClick={proceedWithCode} />
 			</Wrapper>
-			<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack}/>
+			<Navigation goBack={goBack}/>
 		</Layout>
 	
 	);

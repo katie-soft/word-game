@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Hint from '../../components/Hint/Hint';
@@ -24,8 +23,6 @@ function WordPage() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const [hintIsOpen, setHintIsOpen] = useState(true);
-	
 	const wordId = getIdFromLocation(useLocation().pathname) || 'error';
 	const wordItem: Word = getWordById(wordId);
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
@@ -45,13 +42,13 @@ function WordPage() {
 		<Wrapper>
 			<PageTitle>{wordItem.word}</PageTitle>
 			<AccentTitle>Код слова: {wordId}</AccentTitle>
-			<Hint isVisible={hintIsOpen} close={() => setHintIsOpen(false)}>Скажите этот код другим участникам</Hint>
+			<Hint>Скажите этот код другим участникам</Hint>
 			<MenuButton variant='proceed' isCentered onClick={() => {
 				dispatch(gameActions.setRoundScene('word-input'));
 				navigate(`/round/${wordId}`);
 			}} />
 		</Wrapper>
-		<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack} />
+		<Navigation goBack={goBack} />
 	</Layout>;
 }
 

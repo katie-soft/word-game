@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Card from '../../components/Card/Card';
@@ -21,15 +20,12 @@ function Start() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 
-	const [hintIsOpen, setHintIsOpen] = useState(true);
-
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 	const currentRoundType = getRoundType(currentRoundNumber);
 
 	const wordIds: string[] = [];
 	const exceptions: string[] = [];
 	
-
 	const randomWordSelect = () => {
 		const wordList = words.filter(word => word.roundId === currentRoundType && !exceptions.includes(word.id));
 		const newWord = getRandomArrayElement(wordList);
@@ -55,7 +51,7 @@ function Start() {
 		<Layout>
 			<RoundLabel />
 			<Wrapper>
-				<Hint isVisible={hintIsOpen} close={() => setHintIsOpen(false)}>Выберите слово для этого раунда</Hint>
+				<Hint>Выберите слово для этого раунда</Hint>
 				<Card wordId={firstWord} onClick={() => {
 					dispatch(gameActions.setRoundScene('show-code'));
 					dispatch(gameActions.setWordId(firstWord));
@@ -67,7 +63,7 @@ function Start() {
 					navigate(`/words/${secondWord}`);
 				}}></Card>
 			</Wrapper>
-			<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack} />
+			<Navigation goBack={goBack} />
 		</Layout>
 
 	);

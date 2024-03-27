@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppDispatch, RootState } from '../../store/store';
@@ -20,8 +19,6 @@ function RoundResultsPage() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 
-	const [hintIsOpen, setHintIsOpen] = useState(true);
-
 	const { currentRoundNumber, rounds } = useSelector((state: RootState) => state.game);
 	const roundScore = rounds.filter(item => item.roundNumber === currentRoundNumber)[0].roundScore;
 
@@ -41,7 +38,7 @@ function RoundResultsPage() {
 			<PageTitle>Раунд {currentRoundNumber}/6 окончен</PageTitle>
 			<p className={styles.result}>Ваш счет в этом раунде: {roundScore}</p>
 			{!isGameEnd() && <>
-				<Hint isVisible={hintIsOpen} close={() => setHintIsOpen(false)}>
+				<Hint>
 					Если вы ведущий игрок в следующем раунде, нажмите "Выбрать слово". Остальные игроки нажимают "Ввести код"
 				</Hint>
 				<div className={styles['button-wrapper']}>
@@ -58,7 +55,7 @@ function RoundResultsPage() {
 
 			{isGameEnd() && <Button text='Результаты игры' variant='primary' onClick={() => navigate('/game-results')} />}
 		</Wrapper>
-		<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack}/>
+		<Navigation goBack={goBack}/>
 	</Layout>
 	);}
 

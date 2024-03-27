@@ -41,7 +41,6 @@ function RoundPage() {
 	const [isChecking, setIsChecking] = useState(false);
 	const [roundScore, setScore] = useState(0);
 
-	const [hintIsOpen, setHintIsOpen] = useState(true);
 	const hintText = showHintText(isChecking, currentRoundNumber, wordId);
 
 	const [confirmation, setConfirmation] = useState(false);
@@ -99,9 +98,7 @@ function RoundPage() {
 			
 			<Wrapper>
 				{!isBlitz &&<PageTitle>{wordItem.word}</PageTitle>}
-				<Hint 
-					isVisible={hintIsOpen} 
-					close={() => setHintIsOpen(false)}>
+				<Hint>
 					{hintText}
 				</Hint>
 
@@ -121,7 +118,7 @@ function RoundPage() {
 					</div>
 				</Modal> : button}
 			</Wrapper>
-			<Navigation toggleHint={() => setHintIsOpen(!hintIsOpen)} goBack={goBack} />
+			<Navigation goBack={goBack} />
 		</Layout>
 	);
 }
