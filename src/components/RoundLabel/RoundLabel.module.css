@@ -3,6 +3,12 @@
   justify-content: center;
   background-color: var(--nav-color);
   padding: 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 .round:has(.score) {

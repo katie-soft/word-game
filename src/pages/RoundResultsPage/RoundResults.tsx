@@ -37,7 +37,7 @@ function RoundResultsPage() {
 	};
 
 	return (<Layout>
-		<Wrapper hasTopOffset>
+		<Wrapper>
 			<PageTitle>Раунд {currentRoundNumber}/6 окончен</PageTitle>
 			<p className={styles.result}>Ваш счет в этом раунде: {roundScore}</p>
 			{!isGameEnd() && <>

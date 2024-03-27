@@ -63,7 +63,7 @@ function InputPage() {
 	return (
 		<Layout>
 			<RoundLabel></RoundLabel>
-			<Wrapper>
+			<Wrapper hasTopOffset>
 				<Hint isVisible={hintIsOpen} 
 					close={() => setHintIsOpen(false)}>Введите код слова, которое выбрал ведущий игрок</Hint>
 				<CodeInput value={wordId} onChange={setWordCode}></CodeInput>

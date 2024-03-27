@@ -3,5 +3,8 @@
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
+  position: fixed;
+  bottom: 0;
   width: 100%;
+  max-width: var(--max-width);
 }
