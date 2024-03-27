@@ -5,16 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import CodeInput from '../../components/CodeInput/CodeInput';
 import Hint from '../../components/Hint/Hint';
-
-import { AppDispatch, RootState } from '../../store/store';
-import { gameActions } from '../../store/game.slice';
-import { loadState } from '../../utils/localStorage';
-import { getWordById } from '../../utils/getWordById';
-
 import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Navigation from '../../components/Navigation/Navigation';
 import Layout from '../../components/Layout/Layout';
 import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
+
+import { AppDispatch, RootState } from '../../store/store';
+import { gameActions } from '../../store/game.slice';
+import { loadState } from '../../utils/localStorage';
+import { checkWordMatchesRound, getWordById } from '../../utils/getWordById';
 
 function InputPage() {
 
@@ -32,7 +31,7 @@ function InputPage() {
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 
 	const isCodeCorrect = (code: string) => {
-		return getWordById(code) ? true : false;
+		return getWordById(code) && checkWordMatchesRound(code, currentRoundNumber);
 	};
 
 	const proceedWithCode = () => {
