@@ -15,7 +15,6 @@ type HintProps = {
 function Hint({ isError=false, children }: HintProps) {
 
 	const hint = useSelector((state: RootState) => state.hint);
-	console.log(hint);
 	const dispatch = useDispatch();
 
 	const [hintIsOpen, setHintIsOpen] = useState(hint);

@@ -12,6 +12,7 @@ import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
+import { addWord } from '../../store/random.slice';
 import { loadState } from '../../utils/localStorage';
 import { checkWordMatchesRound, getWordById } from '../../utils/getWordById';
 
@@ -38,6 +39,7 @@ function InputPage() {
 			setIsError(false);
 			dispatch(gameActions.setRoundScene('word-input'));
 			dispatch(gameActions.setWordId(wordId));
+			dispatch(addWord(wordId));
 			navigate(`/round/${wordId}`);
 		} else {
 			setIsError(true);

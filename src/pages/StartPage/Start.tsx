@@ -5,15 +5,15 @@ import RoundLabel from '../../components/RoundLabel/RoundLabel';
 import Card from '../../components/Card/Card';
 import Hint from '../../components/Hint/Hint';
 import Navigation from '../../components/Navigation/Navigation';
+import Layout from '../../components/Layout/Layout';
+import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
 
 import { words } from '../../data/words';
 import { getRandomArrayElement } from '../../utils/random';
+import { getRoundType } from '../../utils/roundInfo';
 import { AppDispatch, RootState } from '../../store/store';
 import { gameActions } from '../../store/game.slice';
-import { getRoundType } from '../../utils/roundInfo';
-
-import Layout from '../../components/Layout/Layout';
-import Wrapper from '../../components/PageContentWrapper/PageContentWrapper';
+import { addWord } from '../../store/random.slice';
 
 function Start() {
 
@@ -24,18 +24,25 @@ function Start() {
 	const currentRoundType = getRoundType(currentRoundNumber);
 
 	const wordIds: string[] = [];
-	const exceptions: string[] = [];
-	
+	const exceptions = useSelector((state: RootState) => state.random);
+
 	const randomWordSelect = () => {
-		const wordList = words.filter(word => word.roundId === currentRoundType && !exceptions.includes(word.id));
-		const newWord = getRandomArrayElement(wordList);
+		const wordList = words.filter(word => word.roundId === currentRoundType);
+		const filteredWordList = wordList.filter(word => !exceptions.includes(word.id));
+		const newWord = getRandomArrayElement(filteredWordList);
 		wordIds.push(newWord.id);
-		exceptions.push(newWord.id);
-	};
+	};	
+
 	randomWordSelect();
 	randomWordSelect();
 
-	const [ firstWord, secondWord ] = wordIds;
+	const selectWord = (wordIndex: number) => {
+		const selectedWord = wordIds[wordIndex];
+		dispatch(gameActions.setRoundScene('show-code'));
+		dispatch(gameActions.setWordId(selectedWord));
+		dispatch(addWord(selectedWord));
+		navigate(`/words/${selectedWord}`);
+	};
 
 	const goBack = () => {
 		dispatch(gameActions.setRoundScene(''));
@@ -52,20 +59,11 @@ function Start() {
 			<RoundLabel />
 			<Wrapper>
 				<Hint>Выберите слово для этого раунда</Hint>
-				<Card wordId={firstWord} onClick={() => {
-					dispatch(gameActions.setRoundScene('show-code'));
-					dispatch(gameActions.setWordId(firstWord));
-					navigate(`/words/${firstWord}`);
-				}}></Card>
-				<Card wordId={secondWord} onClick={() => {
-					dispatch(gameActions.setRoundScene('show-code'));
-					dispatch(gameActions.setWordId(secondWord));
-					navigate(`/words/${secondWord}`);
-				}}></Card>
+				<Card wordId={wordIds[0]} onClick={() => selectWord(0)}></Card>
+				<Card wordId={wordIds[1]} onClick={() => selectWord(1)}></Card>
 			</Wrapper>
 			<Navigation goBack={goBack} />
 		</Layout>
-
 	);
 }
 

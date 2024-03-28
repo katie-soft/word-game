@@ -25,7 +25,7 @@ function Navigation({ goBack }: NavigationProps) {
 	return <div className={styles['nav-wrapper']}>
 		<NavButton variant={'home'}></NavButton>
 		{goBack && <NavButton variant={'back'} onClick={goBack}></NavButton>}
-		<NavButton variant={'hint'} onClick={() => toggleHint()}></NavButton>
+		<NavButton variant={'hint'} isActive={isHintOpen} onClick={() => toggleHint()}></NavButton>
 	</div>;  
 }
 

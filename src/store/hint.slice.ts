@@ -11,7 +11,7 @@ export const hintSlice = createSlice({
 	name: 'hint',
 	initialState,
 	reducers: {
-		set: (state, action) => action.payload
+		set: (_state, action) => action.payload
 	}
 });
 
