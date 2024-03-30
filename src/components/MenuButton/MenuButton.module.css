@@ -56,9 +56,11 @@
 
 .proceed .icon {
   background-image: url('../../assets/proceed-button-icon.svg');
+  background-size: 35px;
 }
 
 .rules .icon {
   background-image: url('../../assets/hint_active.svg');
+  background-size: 35px;
 }
 

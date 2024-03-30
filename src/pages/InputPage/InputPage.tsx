@@ -15,6 +15,7 @@ import { gameActions } from '../../store/game.slice';
 import { addWord } from '../../store/random.slice';
 import { loadState } from '../../utils/localStorage';
 import { checkWordMatchesRound, getWordById } from '../../utils/getWordById';
+import ErrorAlert from '../../components/ErrorAlert/ErrorAlert';
 
 function InputPage() {
 
@@ -66,7 +67,7 @@ function InputPage() {
 			<Wrapper hasTopOffset>
 				<Hint>Введите код слова, которое выбрал ведущий игрок</Hint>
 				<CodeInput value={wordId} onChange={setWordCode}></CodeInput>
-				{isError && <Hint isError>Неверный код. Попробуйте еще раз</Hint>}
+				<ErrorAlert isOpen={isError} text={'Неверный код. Попробуйте еще раз'} />
 				<Button text='Далее' variant='primary' onClick={proceedWithCode} />
 			</Wrapper>
 			<Navigation goBack={goBack}/>

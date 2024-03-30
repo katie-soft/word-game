@@ -1,14 +1,9 @@
 .hint {
   border-radius: var(--border-radius);
-  padding: 20px;
+  padding: 24px 20px;
   text-align: center;
   position: relative;
   background-color: var(--light-color);
   color: #000000;
   font-size: 14px;
-}
-
-.error {
-  color: #d34949;
-  text-align: center;
 }

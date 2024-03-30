@@ -7,12 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { set } from '../../store/hint.slice';
 
 type HintProps = {
-	isError?: boolean;
 	close?: () => void;
 	children: ReactNode;
 }
 
-function Hint({ isError=false, children }: HintProps) {
+function Hint({ children }: HintProps) {
 
 	const hint = useSelector((state: RootState) => state.hint);
 	const dispatch = useDispatch();
@@ -29,7 +28,7 @@ function Hint({ isError=false, children }: HintProps) {
 
 	if (hintIsOpen) {
 		return (
-			<div className={isError ? styles.error : styles.hint}>
+			<div className={styles.hint}>
 				{children}
 				<CloseButton onClick={closeHint}/>
 			</div>
