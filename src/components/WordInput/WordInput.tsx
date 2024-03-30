@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { HTMLAttributes, useState } from 'react';
 import styles from './WordInput.module.css';
 import cn from 'classnames';
 import WordCheckbox from '../WordCheckbox/WordCheckbox';
@@ -6,15 +6,16 @@ import { gameActions } from '../../store/game.slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 
-type PropsType = {
+interface InputProps extends HTMLAttributes<HTMLInputElement> {
 	startValue: string;
 	index: string;
 	isChecking: boolean;
 	updateScore: (isChecked: boolean) => void;
 	label?: string;
+	handleEnter: (event: React.KeyboardEvent<HTMLHeadingElement>) => void
 }
 
-export function WordInput({ startValue, isChecking=false, updateScore, label, index}: PropsType) {
+export function WordInput({ startValue, isChecking=false, updateScore, label, index, handleEnter}: InputProps) {
 
 	const [value, setValue] = useState(startValue);
 	const [isCrossed, setIsCrossed] = useState(false);
@@ -43,7 +44,8 @@ export function WordInput({ startValue, isChecking=false, updateScore, label, in
 					onChange={(e) => setValue(e.target.value)}
 					onBlur={() => saveInput(index, value)} 
 					value={value}
-					id={index}/>
+					id={index}
+					onKeyDown={handleEnter}/>
 				{(isChecking && value.length ) ? <WordCheckbox onChange={handleChange} /> : null}
 			</div>
 		</div>

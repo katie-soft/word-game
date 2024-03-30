@@ -3,11 +3,11 @@ import { Round, RoundType } from '../types/Word.types';
 export const round: Round[] = [
 	{
 		id: 0,
-		name: 'Совы'
+		name: 'Одинаковые'
 	},
 	{
 		id: 1,
-		name: 'Жаворонки'
+		name: 'Разные'
 	},
 	{
 		id: 2,

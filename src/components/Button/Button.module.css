@@ -10,7 +10,8 @@
 
 .primary {
   background-color: var(--quaternary-color);
-  padding: 10px 16px;
+  padding: 16px;
+  font-size: 16px;
   min-width: 150px;
 }
 

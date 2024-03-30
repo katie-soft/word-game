@@ -10,9 +10,10 @@ export interface WordListProps extends HTMLAttributes<HTMLHeadingElement> {
 	wordId: string;
 	isChecking: boolean;
 	updateScore: (isChecked: boolean) => void;
+	handleEnter: (event: React.KeyboardEvent<HTMLHeadingElement>) => void;
 }
 
-function WordList({ startWords, wordId, isChecking, updateScore }: WordListProps) {
+function WordList({ startWords, wordId, isChecking, updateScore, handleEnter }: WordListProps) {
 
 	const wordLabels = getWordById(wordId).wordList || [];
 
@@ -24,7 +25,9 @@ function WordList({ startWords, wordId, isChecking, updateScore }: WordListProps
 				startValue={item}
 				label={wordLabels[i]} 
 				isChecking={isChecking} 
-				updateScore={updateScore}></WordInput>
+				updateScore={updateScore}
+				handleEnter={handleEnter}>
+			</WordInput>
 		))}
 	</div>; 
 }

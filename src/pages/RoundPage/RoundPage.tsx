@@ -41,7 +41,7 @@ function RoundPage() {
 	const [isChecking, setIsChecking] = useState(false);
 	const [roundScore, setScore] = useState(0);
 
-	const hintText = showHintText(isChecking, currentRoundNumber, wordId);
+	const hintText = showHintText(isChecking, currentRoundNumber);
 
 	const [confirmation, setConfirmation] = useState(false);
 
@@ -67,6 +67,12 @@ function RoundPage() {
 		setConfirmation(false);
 		setIsChecking(true);
 		dispatch(gameActions.setRoundScene('score-count'));
+	};
+	
+	const handleEnter = (event: React.KeyboardEvent<HTMLHeadingElement>) => {
+		if (event.key === 'Enter') {
+			checkEmptyCells();
+		}
 	};
 
 	const proceedToResults = () => {
@@ -94,7 +100,7 @@ function RoundPage() {
 
 	return (
 		<Layout>
-			{isChecking ? <RoundLabel score={roundScore} /> : <RoundLabel />}
+			{isChecking ? <RoundLabel score={roundScore} /> : <RoundLabel wordId={wordId}/>}
 			
 			<Wrapper>
 				{!isBlitz &&<PageTitle>{wordItem.word}</PageTitle>}
@@ -103,10 +109,12 @@ function RoundPage() {
 				</Hint>
 
 				<WordList
+					tabIndex={1}
 					wordId={wordId}
 					isChecking={isChecking}
 					updateScore={updateScore}
 					startWords={savedWordList}
+					handleEnter={handleEnter}
 				></WordList>
 
 				{confirmation ? <Modal isOpen={confirmation}>

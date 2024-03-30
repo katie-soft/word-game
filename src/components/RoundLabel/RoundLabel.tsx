@@ -1,30 +1,37 @@
 import { useSelector } from 'react-redux';
+import cn from 'classnames';
+
 import { round } from '../../data/rounds';
 import { RootState } from '../../store/store';
-import { getRoundType } from '../../utils/roundInfo';
+import { getIconType, getRoundType } from '../../utils/roundInfo';
 
 import styles from './RoundLabel.module.css';
 
 type RoundLabelProps = {
-	score?: number
+	score?: number,
+	wordId?: string
 }
 
-function RoundLabel({ score }: RoundLabelProps) {
+function RoundLabel({ score, wordId }: RoundLabelProps) {
 
 	const { currentRoundNumber } = useSelector((state: RootState) => state.game);
 	const roundId = getRoundType(currentRoundNumber);
 	const roundName = round[roundId].name; 
+	const iconType = getIconType(roundId);
 
-	const iconType = (currentRoundNumber === 2 || currentRoundNumber === 5) ? 'unequal' : 'equal';
+	const withDetails = score != undefined || !!wordId;
+	const detailsText = wordId ? 'Код слова:' : 'Счет:';
 
-	const withScore = score !== undefined;
-
-	return <div className={styles.round}>
-		<div className={styles.info}>
-			<div className={styles[iconType]}></div>
-			<h3 className={styles.title}>Раунд {currentRoundNumber}/6: {roundName}</h3>
+	return <div className={cn(styles.round, styles[iconType])}>
+		<div className={styles.icon}></div>
+		<div className={styles.title}>
+			<span>Раунд {currentRoundNumber}/6: </span>
+			<span className={styles.subtitle}>{roundName}</span>
 		</div>
-		{withScore && <span className={styles.score}>Счет: {score}</span>}
+		{withDetails && <div className={styles.details}>
+			<span>{detailsText}</span>
+			<span className={styles.subtitle}>{score}{wordId}</span>
+		</div>}
 	</div>; 
 }
 

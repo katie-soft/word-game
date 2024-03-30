@@ -1,7 +1,8 @@
 .round {
   display: flex;
   justify-content: center;
-  background-color: var(--nav-color);
+  align-items: center;
+  gap: 8px;
   padding: 16px;
   position: fixed;
   top: 0;
@@ -12,14 +13,16 @@
   z-index: 10;
 }
 
-.round:has(.score) {
-  justify-content: space-between;
+.equal {
+  background-color: var(--secondary-color);
 }
 
-.info {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+.unequal {
+  background-color: var(--alert-color);
+}
+
+.blitz {
+  background-color: var(--primary-color);
 }
 
 .title {
@@ -29,23 +32,52 @@
   font-weight: 500;
 }
 
-.info div {
+.icon {
   width: 24px;
   height: 24px;
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-.equal {
-  background-image: url('../../assets/owl.svg');
+.equal .icon {
+  background-image: url('../../assets/target.svg');
 }
 
-.unequal {
-  background-image: url('../../assets/lark.svg');
+.unequal .icon {
+  background-image: url('../../assets/diamond.svg');
 }
 
-.score {
-  font-size: 20px;
+.blitz .icon {
+  background-image: url('../../assets/flash.svg');
+}
+
+.details {
+  font-size: 16px;
   font-weight: 500;
-  color: var(--accent-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 85px;
+}
+
+.round:has(.details) {
+  justify-content: space-between;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.round:has(.details) .title {
+  font-size: 16px;
+  order: -1;
+  display: flex;
+  flex-direction: column;
+}
+
+.round:has(.details) .icon {
+  width: 36px;
+  height: 36px;
+}
+
+.subtitle {
+  font-weight: 300;
 }

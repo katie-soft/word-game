@@ -19,3 +19,5 @@ export type newWord = {
 	index: number;
 	word: string;
 }
+
+export type IconType = 'equal' | 'unequal' | 'blitz';

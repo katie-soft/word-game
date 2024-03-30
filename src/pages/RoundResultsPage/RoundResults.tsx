@@ -19,7 +19,7 @@ function RoundResultsPage() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 
-	const { currentRoundNumber, rounds } = useSelector((state: RootState) => state.game);
+	const { currentRoundNumber, rounds, totalScore } = useSelector((state: RootState) => state.game);
 	const roundScore = rounds.filter(item => item.roundNumber === currentRoundNumber)[0].roundScore;
 
 	const isGameEnd = () => {
@@ -37,6 +37,7 @@ function RoundResultsPage() {
 		<Wrapper>
 			<PageTitle>Раунд {currentRoundNumber}/6 окончен</PageTitle>
 			<p className={styles.result}>Ваш счет в этом раунде: {roundScore}</p>
+			<p className={styles.result}>Промежуточный счет за всю игру: {totalScore}</p>
 			{!isGameEnd() && <>
 				<Hint>
 					Если вы ведущий игрок в следующем раунде, нажмите "Выбрать слово". Остальные игроки нажимают "Ввести код"
